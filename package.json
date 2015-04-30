@@ -1,0 +1,30 @@
+{
+  "name": "jupyter-sidecar",
+  "version": "0.0.1",
+  "description": "Little side display of Jupyter kernel rich output",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rgbkrk/jupyter-sidecar.git"
+  },
+  "keywords": [
+    "jupyter",
+    "ipython",
+    "sidecar",
+    "output",
+    "garbage",
+    "periwinkle"
+  ],
+  "author": "Kyle Kelley",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/rgbkrk/jupyter-sidecar/issues"
+  },
+  "homepage": "https://github.com/rgbkrk/jupyter-sidecar",
+  "dependencies": {
+    "zmq": "^2.11.0"
+  }
+}

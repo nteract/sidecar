@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Jupyter Sidecar</title>
+  </head>
+  <body>
+    <div id="container">
+    </div>
+    
+    <script>
+      require('ipc').on('display', function(message) {
+        document.getElementById('container').innerHTML = message;
+      });
+    </script>
+  </body>
+</html>
