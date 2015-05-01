@@ -4,7 +4,7 @@
   "description": "Little side display of Jupyter kernel rich output",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,8 @@
   "homepage": "https://github.com/rgbkrk/jupyter-sidecar",
   "dependencies": {
     "zmq": "^2.11.0"
+  },
+  "devDependencies": {
+    "electron-prebuilt": "0.25.1-1"
   }
 }
