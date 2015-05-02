@@ -10,4 +10,6 @@ In order to get Electron to come up, zmq has to be built with Electron headers. 
 HOME=~/code/electron/ node-gyp rebuild --target=0.25.2 --arch=x64 --dist-url=https://atom.io/download/atom-shell
 ```
 
+Making sure to set `HOME` to wherever you have electron downloaded locally.
+
 After that you're all set to hack on Electron Jupyter mashups.
