@@ -44,12 +44,9 @@ app.on('ready', function() {
       // Get display data if available
       if("content" in msg && "data" in msg.content) {
         var richDisplay = new jupyter.RichDisplay(msg.content.data);
-        richDisplay.render(sideCar.webContents);
-        
-
-        
+        richDisplay.render(sideCar.webContents);  
       }
-      
+
     });
   });
   
