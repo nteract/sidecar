@@ -48,9 +48,11 @@ app.on('ready', function() {
         
         if("text/html" in data){
           display = data["text/html"];
+        } else if ("image/png" in data) {
+          display = "<img src='data:image/png;base64," + data["image/png"] + "'/>";
         } else if ("text/plain" in data) {
           display = data["text/plain"];
-        }
+        } 
         
         if (display !== null){
           sideCar.webContents.send('display', display);
