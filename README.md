@@ -27,6 +27,37 @@ In order to get Electron to come up, zmq has to be built with Electron headers. 
 node-gyp rebuild --target=0.25.2 --arch=x64 --dist-url=https://atom.io/download/atom-shell
 ```
 
-After that you're all set to hack on Electron Jupyter mashups.
+Now that it's built, get ready for MORE YAK SHAVING!
 
-Run it with `electron . {path to kernel-###.json}`
+Start an ipython kernel with:
+
+```
+ipython kernel
+```
+
+This should spit out some text like:
+
+```
+NOTE: When using the `ipython kernel` entry point, Ctrl-C will not work.
+
+To exit, you will have to explicitly quit this process, by either sending
+"quit" from a client, or using Ctrl-\ in UNIX-like environments.
+
+To read more about this, see https://github.com/ipython/ipython/issues/2049
+
+
+To connect another client to this kernel, use:
+    --existing kernel-20139.json   # Your kernel number will probably be different
+```
+
+Then open a console connected to that kernel:
+
+```
+ipython console --existing kernel-20139.json
+```
+
+Then you'll need to locate where that kernel config was written to disk. This can vary based on what IPython you're running. In my case, since I'm running from the master branch of all the Jupyter and IPython repos (after the big split :tm:), they're located at `~/Library/Jupyter/runtime/`.
+
+Yours are likely in `~/.ipython/profile_default/security/`. One way to find it on a *nix system is `find ~/ -name kernel-20139.json`.
+
+Finally, run it with `electron . {path to kernel-###.json}`
