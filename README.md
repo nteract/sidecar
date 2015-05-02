@@ -1,5 +1,9 @@
 # jupyter-sidecar
+
 Little side display of Jupyter kernel rich output
+
+![Sidecar in Electron](https://files.gitter.im/ipython/ipython/wiaB/sidecar.gif)
+
 
 ## Building
 
@@ -24,4 +28,4 @@ node-gyp rebuild --target=0.25.2 --arch=x64 --dist-url=https://atom.io/download/
 
 After that you're all set to hack on Electron Jupyter mashups.
 
-Run it with `electron . {path to kernel-###.json}
+Run it with `electron . {path to kernel-###.json}`
