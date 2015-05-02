@@ -30,7 +30,8 @@ app.on('ready', function() {
   // Create the browser window.
   sideCar = new BrowserWindow({
     width: 800,
-    height: 800
+    height: 800,
+    //"node-integration": false, // Would have to use a web-view and work with events
     //frame: false
   });
 
@@ -38,11 +39,14 @@ app.on('ready', function() {
   sideCar.loadUrl('file://' + __dirname + '/index.html');
   
   sideCar.webContents.on('did-finish-load', function() {
+    
     session = new jupyter.IOPubSession(config, function(msg){
       // Get display data if available
       if("content" in msg && "data" in msg.content) {
         var richDisplay = new jupyter.RichDisplay(msg.content.data);
         richDisplay.render(sideCar.webContents);
+        
+
         
       }
       

@@ -27,6 +27,7 @@
   "electronVersion": "0.25.2",
   "dependencies": {
     "jmp": "0.0.3",
+    "katex": "^0.2.0",
     "minimist": "^1.1.1",
     "zmq": "^2.11.0"
   },
