@@ -1,9 +1,10 @@
 # jupyter-sidecar
 
-Little side display of Jupyter kernel rich output
+Little side HTML display of Jupyter kernel rich output.
 
 ![Sidecar in Electron](https://files.gitter.im/ipython/ipython/wiaB/sidecar.gif)
 
+This is a WIP that requires building it yourself and connecting directly to a running Jupyter kernel.
 
 ## Building
 
