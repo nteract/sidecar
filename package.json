@@ -28,6 +28,7 @@
   "dependencies": {
     "jmp": "0.0.3",
     "katex": "^0.2.0",
+    "marked": "^0.3.3",
     "minimist": "^1.1.1",
     "zmq": "^2.11.0"
   },
