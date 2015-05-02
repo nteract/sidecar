@@ -42,8 +42,7 @@ app.on('ready', function() {
       // Get display data if available
       if("content" in msg && "data" in msg.content) {
         var richDisplay = new jupyter.RichDisplay(msg.content.data);
-        
-        sideCar.webContents.send('display', richDisplay.html());
+        richDisplay.render(sideCar.webContents);
         
       }
       
