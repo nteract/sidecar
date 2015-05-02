@@ -1,7 +1,7 @@
 var app = require('app');  // Electron app
 var BrowserWindow = require('browser-window');  // Creating Browser Windows
 
-var IOPubSession = require("./lib/session.js").IOPubSession;
+var jupyter = require("./lib/jupyter.js")
 
 // Parse out a kernel-####.json argument
 var argv = require('minimist')(process.argv.slice(2));
@@ -38,26 +38,12 @@ app.on('ready', function() {
   sideCar.loadUrl('file://' + __dirname + '/index.html');
   
   sideCar.webContents.on('did-finish-load', function() {
-    session = IOPubSession(config, function(msg){
+    session = new jupyter.IOPubSession(config, function(msg){
       // Get display data if available
       if("content" in msg && "data" in msg.content) {
-        var data = msg.content.data;
+        var richDisplay = new jupyter.RichDisplay(msg.content.data);
         
-        var display = null;
-        
-        
-        if("text/html" in data){
-          display = data["text/html"];
-        } else if ("image/png" in data) {
-          display = "<img src='data:image/png;base64," + data["image/png"] + "'/>";
-        } else if ("text/plain" in data) {
-          display = data["text/plain"];
-        } 
-        
-        if (display !== null){
-          sideCar.webContents.send('display', display);
-        }
-        
+        sideCar.webContents.send('display', richDisplay.html());
         
       }
       
