@@ -24,7 +24,10 @@
     "url": "https://github.com/rgbkrk/jupyter-sidecar/issues"
   },
   "homepage": "https://github.com/rgbkrk/jupyter-sidecar",
+  "electronVersion": "0.25.2",
   "dependencies": {
+    "jmp": "0.0.3",
+    "minimist": "^1.1.1",
     "zmq": "^2.11.0"
   },
   "devDependencies": {

@@ -1,0 +1,35 @@
+{
+  "name": "jupyter-sidecar",
+  "version": "0.0.1",
+  "dependencies": {
+    "jmp": {
+      "version": "0.0.3",
+      "from": "jmp@0.0.3",
+      "resolved": "https://registry.npmjs.org/jmp/-/jmp-0.0.3.tgz",
+      "dependencies": {
+        "node-uuid": {
+          "version": "1.4.3",
+          "from": "node-uuid@>=1.4.2 <2.0.0",
+          "resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.3.tgz"
+        }
+      }
+    },
+    "zmq": {
+      "version": "2.11.0",
+      "from": "zmq@>=2.11.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/zmq/-/zmq-2.11.0.tgz",
+      "dependencies": {
+        "nan": {
+          "version": "1.8.4",
+          "from": "nan@>=1.8.4 <1.9.0",
+          "resolved": "https://registry.npmjs.org/nan/-/nan-1.8.4.tgz"
+        },
+        "bindings": {
+          "version": "1.1.1",
+          "from": "bindings@>=1.1.1 <1.2.0",
+          "resolved": "https://registry.npmjs.org/bindings/-/bindings-1.1.1.tgz"
+        }
+      }
+    }
+  }
+}

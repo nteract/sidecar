@@ -1,9 +1,14 @@
 var app = require('app');  // Electron app
 var BrowserWindow = require('browser-window');  // Creating Browser Windows
 
-//var zmq = require('zmq');
+var IOPubSession = require("./lib/session.js").IOPubSession;
 
-//var Snupyter = require('lib/snupyter.js');
+// Parse out a kernel-####.json argument
+var argv = require('minimist')(process.argv.slice(2));
+var connFile = argv._[0];
+var config = require(connFile);
+
+var session = IOPubSession(config);
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -15,8 +20,8 @@ var sideCar = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {
-  if (process.platform != 'darwin')
-    app.quit();
+  // Fully close up, even on OS X
+  app.quit();
 });
 
 // This method will be called when Electron has done every
