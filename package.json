@@ -30,9 +30,7 @@
     "katex": "^0.2.0",
     "marked": "^0.3.3",
     "minimist": "^1.1.1",
-    "zmq": "^2.11.0"
-  },
-  "devDependencies": {
+    "zmq": "^2.11.0",
     "electron-prebuilt": "^0.28.1",
     "electron-rebuild": "^0.2.2"
   }
