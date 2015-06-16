@@ -8,24 +8,24 @@ This is a WIP that requires building it yourself and connecting directly to a ru
 
 ## Building
 
-This package requires iojs and zmq.
+This package requires [iojs](https://iojs.org/en/index.html) and [zmq](http://zeromq.org/intro:get-the-software).
 
-Install ZeroMQ headers for your platform.
-Install iojs
-
-Install node-gyp:
+Additionally, you'll need `node-gyp`:
 
 ```
 npm install -g node-gyp
 ```
 
-Clone this repository, `cd` into it, and run `npm install`.
-
-In order to get Electron to come up, zmq has to be built with Electron headers. zmq also needs to use `nan` 1.8.4. This gets included in npm-shrinkwrap.json. After doing an `npm install`, you'll have to `cd` into `./node_modules/zmq` and run:
+After cloning this repository and `cd`ing into the directory, run this series of commands:
 
 ```
-node-gyp rebuild --target=0.25.2 --arch=x64 --dist-url=https://atom.io/download/atom-shell
+$ npm install
+$ cd node_modules/zmq # We're going to build zmq against Electron's headers
+$ node-gyp rebuild --target=0.28.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell
+$ cd ../..
 ```
+
+## Running
 
 Now that it's built, get ready for MORE YAK SHAVING!
 
@@ -60,4 +60,7 @@ Then you'll need to locate where that kernel config was written to disk. This ca
 
 Yours are likely in `~/.ipython/profile_default/security/`. One way to find it on a *nix system is `find ~/ -name kernel-20139.json`.
 
-Finally, run it with `electron . {path to kernel-###.json}`
+Finally, run it with
+```
+./node_modules/.bin/electron . ~/Library/Jupyter/runtime/kernel-20139.json
+```
