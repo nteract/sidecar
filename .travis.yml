@@ -3,16 +3,9 @@ node_js:
   - '0.12'
   - 'iojs'
 
-sudo: false
-
-addons:
-  apt:
-    packages:
-      -libzmq3-dev
-
 before_install:
-  - scripts/travis-get-zmq.sh
+  - apt-get install libzmq3-dev
   - npm install -g node-gyp
 
 install:
-  - npm run build
+  - npm install
