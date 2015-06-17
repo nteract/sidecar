@@ -34,7 +34,7 @@
   },
   "scripts": {
     "build-zmq": "cd node_modules/zmq && node-gyp rebuild --target=0.28.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
-    "build": "npm install --ignore-scripts && npm run build-zmq && npm install",
+    "build": "npm install && npm run build-zmq",
     "start": "electron ."
   }
 }
