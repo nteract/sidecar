@@ -6,3 +6,7 @@ node_js:
 before_install:
   - sudo apt-get update
   - sudo apt-get install -qq libzmq3-dev
+
+install:
+  - npm install
+  - npm run build-zmq
