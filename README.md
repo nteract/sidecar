@@ -20,9 +20,7 @@ After cloning this repository and `cd`ing into the directory, run this series of
 
 ```
 $ npm install
-$ cd node_modules/zmq # We're going to build zmq against Electron's headers
-$ node-gyp rebuild --target=0.28.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell
-$ cd ../..
+$ npm run build-zmq
 ```
 
 ## Running
@@ -62,5 +60,5 @@ Yours are likely in `~/.ipython/profile_default/security/`. One way to find it o
 
 Finally, run it with
 ```
-./node_modules/.bin/electron . ~/Library/Jupyter/runtime/kernel-20139.json
+$ npm run start ~/Library/Jupyter/runtime/kernel-20139.json
 ```
