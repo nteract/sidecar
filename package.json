@@ -16,7 +16,7 @@
     "periwinkle"
   ],
   "author": "Kyle Kelley",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/rgbkrk/jupyter-sidecar/issues"
   },
