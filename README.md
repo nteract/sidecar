@@ -8,7 +8,7 @@ This is a WIP that requires building it yourself and connecting directly to a ru
 
 ## Building
 
-This package requires [iojs](https://iojs.org/en/index.html) and [zmq](http://zeromq.org/intro:get-the-software).
+This package requires [iojs](https://iojs.org/en/index.html), [zmq](http://zeromq.org/intro:get-the-software), and either IPython 3.x or the current `master` suite of Jupyter packages.
 
 Additionally, you'll need `node-gyp`:
 
@@ -16,13 +16,10 @@ Additionally, you'll need `node-gyp`:
 npm install -g node-gyp
 ```
 
-After cloning this repository and `cd`ing into the directory, run this series of commands:
+After cloning this repository and `cd`ing into the directory, run this:
 
 ```
-$ npm install
-$ cd node_modules/zmq # We're going to build zmq against Electron's headers
-$ node-gyp rebuild --target=0.28.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell
-$ cd ../..
+$ npm run build
 ```
 
 ## Running
@@ -62,5 +59,5 @@ Yours are likely in `~/.ipython/profile_default/security/`. One way to find it o
 
 Finally, run it with
 ```
-./node_modules/.bin/electron . ~/Library/Jupyter/runtime/kernel-20139.json
+$ npm run start ~/Library/Jupyter/runtime/kernel-20139.json
 ```

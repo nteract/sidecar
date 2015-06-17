@@ -1,4 +1,16 @@
 language: node_js
 node_js:
-  - '0.12'
   - 'iojs'
+
+env:
+  - PLATFORM=darwin
+  - PLATFORM=win32
+  - PLATFORM=linux
+
+before_install:
+  - sudo apt-get install -qq libzmq3-dev pkg-config
+  - npm install -g node-gyp electron electron-prebuilt electron-packager
+
+install:
+  - npm install
+  - electron-packager ./ SideCar --platform=$PLATFORM --arch=x64 --version=0.28.1

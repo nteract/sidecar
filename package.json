@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "Little side display of Jupyter kernel rich output",
   "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/rgbkrk/jupyter-sidecar.git"
@@ -19,7 +16,7 @@
     "periwinkle"
   ],
   "author": "Kyle Kelley",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/rgbkrk/jupyter-sidecar/issues"
   },
@@ -32,6 +29,15 @@
     "minimist": "^1.1.1",
     "zmq": "^2.11.0",
     "electron-prebuilt": "^0.28.1",
-    "electron-rebuild": "^0.2.2"
+    "electron-rebuild": "^0.2.2",
+    "node-gyp": "^1.0.3"
+  },
+  "scripts": {
+    "build-zmq": "cd node_modules/zmq && node-gyp rebuild --target=0.28.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
+    "build": "npm install && npm run build-zmq",
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron-packager": "^4.1.3"
   }
 }
