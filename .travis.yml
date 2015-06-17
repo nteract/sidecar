@@ -8,7 +8,7 @@ env:
 
 before_install:
   - sudo apt-get install libzmq3-dev
-  - npm install -g node-gyp
+  - npm install -g node-gyp electron electron-prebuilt
 
 install:
   - HOME=~/.electron-gyp npm install
