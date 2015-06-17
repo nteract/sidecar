@@ -8,5 +8,4 @@ before_install:
   - sudo apt-get install -qq libzmq3-dev
 
 install:
-  - npm install
-  - npm run build-zmq
+  - npm run build
