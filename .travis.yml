@@ -4,11 +4,13 @@ node_js:
   - 'iojs'
 
 env:
-  - npm_config_target=0.28.1 npm_config_arch=x64 npm_config_disturl=https://atom.io/download/atom-shell
+  - PLATFORM=darwin
+  - PLATFORM=win32
+  - PLATFORM=linux
 
 before_install:
   - sudo apt-get install -qq libzmq3-dev pkg-config
-  - npm install -g node-gyp electron electron-prebuilt
+  - npm install -g node-gyp electron electron-prebuilt electron-packager
 
 install:
-  - HOME=~/.electron-gyp npm install
+  - electron-packager ./ SideCar --platform=$PLATFORM --arch=x64 --version=0.28.1
