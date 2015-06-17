@@ -3,10 +3,12 @@ node_js:
   - '0.12'
   - 'iojs'
 
+env:
+  - npm_config_target=0.28.1 npm_config_arch=x64 npm_config_disturl=https://atom.io/download/atom-shell
+
 before_install:
   - sudo apt-get install libzmq3-dev
   - npm install -g node-gyp
 
 install:
-  - npm install
-  - cd node_modules/zmq && node-gyp rebuild --target=0.28.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell
+  - HOME=~/.electron-gyp npm install
