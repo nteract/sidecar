@@ -4,7 +4,7 @@ node_js:
   - 'iojs'
 
 before_install:
-  - apt-get install libzmq3-dev
+  - sudo apt-get install libzmq3-dev
   - npm install -g node-gyp
 
 install:
