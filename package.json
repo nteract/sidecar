@@ -21,7 +21,7 @@
     "url": "https://github.com/rgbkrk/jupyter-sidecar/issues"
   },
   "homepage": "https://github.com/rgbkrk/jupyter-sidecar",
-  "electronVersion": "0.28.1",
+  "electronVersion": "0.28.3",
   "dependencies": {
     "electron-prebuilt": "^0.28.3",
     "jmp": "0.0.7",
