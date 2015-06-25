@@ -2,14 +2,9 @@ var app = require('app');  // Electron app
 var BrowserWindow = require('browser-window');  // Creating Browser Windows
 
 var jupyter = require("./lib/jupyter.js");
+var RuntimeWatch = require("./lib/runtime-watch.js");
 
-// Parse out a kernel-####.json argument
-var argv = require('minimist')(process.argv.slice(2));
-
-var connFileArg;
-if (argv._.length > 0) {
-  connFileArg = argv._[0];
-}
+var jp = require('jupyter-paths');
 
 // Report crashes to our server.
 require('crash-reporter').start();
@@ -19,7 +14,6 @@ app.on('window-all-closed', function() {
   // Fully close up, even on OS X
   app.quit();
 });
-
 
 function launchSideCar(connFile) {
   // Keep a global reference of the side car window object
@@ -61,12 +55,18 @@ function launchSideCar(connFile) {
   });
 }
 
+function updateKernel(connFile, stat) {
+  if (stat.nlink !== 0){
+    launchSideCar(connFile);
+  } else {
+    console.log("Connection " + connFile + " closed!");
+  }
+
+}
+
+var kw = new RuntimeWatch(updateKernel, jp.paths.runtime[0]);
+
 // This method will be called when Electron has done every
 // initialization and is ready for creating browser windows.
 app.on('ready', function() {
-  if (connFileArg) {
-    launchSideCar(connFileArg);
-  } else {
-    console.log("Didn't specify a running kernel.");
-  }
 });
