@@ -57,6 +57,7 @@ function launchSideCar(connFile) {
 
 function updateKernel(connFile, stat) {
   if (stat.nlink !== 0){
+    console.log("Launching " + connFile + "!");
     launchSideCar(connFile);
   } else {
     console.log("Connection " + connFile + " closed!");
