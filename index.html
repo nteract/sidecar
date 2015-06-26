@@ -3,6 +3,23 @@
   <head>
     <title>Jupyter Sidecar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.2.0/katex.min.css">
+
+    <template id="tmpl-cell">
+      <style>
+        h1 {
+          background-color: #c6f2ae;
+          border-color: #3b950a;
+          padding: 2px 5px;
+          margin: 10px 0;
+        }
+
+        #output-container {
+          padding: 5px 10px;
+        }
+      </style>
+      <h1>Output</h1>
+      <div id="output-container">
+    </template>
   </head>
   <body style="-webkit-app-region: drag">
     <div class="content pure-u-1">
@@ -11,21 +28,32 @@
     </div>
 
     <script>
+      var cellPrototype = Object.create(HTMLElement.prototype, {
+        createdCallback: {
+          value: function() {
+            var t = document.querySelector('#tmpl-cell');
+            var clone = document.importNode(t.content, true);
+            this.root = this.createShadowRoot();
+            this.root.appendChild(clone);
+          }
+        }
+      });
+
+      cellPrototype.setPayload = function (content) {
+        this.root.getElementById("output-container").innerHTML = content;
+      };
+
+      document.registerElement('sidecar-cell', {prototype: cellPrototype});
+
       var ipc = require('ipc');
+      var container = document.getElementById('container');
 
       ipc.on('display', function(message) {
-        var container = document.getElementById('container');
-        container.innerHTML += "<div class='sidecar-output'>" + message + "</div>";
+        var cellNode = document.createElement('sidecar-cell');
+        cellNode.setPayload(message);
+        container.appendChild(cellNode);
 
-        // TODO: Set an ID for each element, just use the last created element
-        var outputs = document.getElementsByClassName("sidecar-output");
-
-        if (outputs.length > 0) {
-          // outputs is an HTMLCollection, not an Array, so there is no .pop()
-          var lastOutput = outputs[outputs.length - 1];
-          lastOutput.scrollIntoView();
-        }
-
+        cellNode.scrollIntoView();
       });
     </script>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.2.0/katex.min.js"></script>-->
