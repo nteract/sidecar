@@ -3,6 +3,8 @@
 var app = require('app');  // Electron app
 var BrowserWindow = require('browser-window');  // Creating Browser Windows
 
+var globalShortcut = require('global-shortcut');
+
 var jupyter = require("./lib/jupyter.js");
 var RuntimeWatch = require("./lib/runtime-watch.js");
 
@@ -115,4 +117,19 @@ var kw = new RuntimeWatch(updateKernel, jp.paths.runtime[0]);
 // This method will be called when Electron has done every
 // initialization and is ready for creating browser windows.
 app.on('ready', function() {
+		globalShortcut.register('Alt+CmdOrCtrl+I', function () {
+			var win = BrowserWindow.getFocusedWindow();
+
+			if (win) {
+				win.toggleDevTools();
+			}
+		});
+
+		globalShortcut.register('CmdOrCtrl+R', function () {
+			var win = BrowserWindow.getFocusedWindow();
+
+			if (win) {
+				win.reloadIgnoringCache();
+			}
+		});
 });
