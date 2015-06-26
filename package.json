@@ -1,6 +1,6 @@
 {
   "name": "jupyter-sidecar",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Little side display of Jupyter kernel rich output",
   "main": "main.js",
   "repository": {
