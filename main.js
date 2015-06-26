@@ -37,12 +37,23 @@ function launchSideCar(connFile) {
   sideCar.webContents.on('did-finish-load', function() {
 
     session = new jupyter.IOPubSession(config, function(msg){
-      // Get display data if available
-      if("content" in msg && "data" in msg.content) {
-        var richDisplay = new jupyter.RichDisplay(msg.content.data);
-        richDisplay.render(sideCar.webContents);
+      if (!("header" in msg && "content" in msg)){
+        // Didn't get a header, which is odd.
+        // Also need content to display
+        return;
       }
 
+      console.log(msg.header);
+      console.log(msg);
+      console.log("\n\n");
+
+      var richDisplay = new jupyter.RichDisplay(msg.content);
+      // Get display data if available
+      if (msg.header.msg_type === "execute_result") {
+        richDisplay.renderData(sideCar.webContents);
+      } else if (msg.header.msg_type === "stream"){
+        richDisplay.renderStream(sideCar.webContents);
+      }
     });
   });
 
