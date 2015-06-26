@@ -19,13 +19,11 @@ app.on('window-all-closed', function() {
   app.quit();
 });
 
-function launchSideCar(connFile) {
+function launchSideCar(session) {
   // Keep a global reference of the side car window object
   // If we don't, the window will be closed automatically when the javascript
   // object is GCed.
-  var config = require(connFile);
   var sideCar = null;
-  var session = null;
 
   // Create the browser window.
   sideCar = new BrowserWindow({
@@ -38,9 +36,8 @@ function launchSideCar(connFile) {
   // and load the index.html of the app.
   sideCar.loadUrl('file://' + __dirname + '/index.html');
 
-  sideCar.webContents.on('did-finish-load', function() {
-
-    session = new jupyter.IOPubSession(config, function(msg){
+  sideCar.webContents.on('did-finish-load', function () {
+    session.on(function (msg) {
       if (!("header" in msg && "content" in msg)){
         // Didn't get a header, which is odd.
         // Also need content to display
@@ -74,7 +71,6 @@ function launchSideCar(connFile) {
           console.log("Noticed a msg_type we don't recognize");
           console.log(msg);
       }
-
     });
   });
 
@@ -98,21 +94,70 @@ function updateKernel(connFiles) {
       connStat = connFiles[i].stat;
 
     if (connStat.nlink !== 0) {
-      // This connection file is alive.
-      // If doesn't already have a sidecar, launch one for it.
-      if (! liveSidecars.has(connPath)) {
-        console.log("Launching sidecar for connection " + connPath + ".");
+      // This connection file is still present. Create a connection and probe its heartbeat to
+      // verify that the kernel is still responsive.
+      let config = require(connPath);
+      let session = new jupyter.IOPubSession(config);
 
-        liveSidecars.set(connPath, launchSideCar(connPath));
-      }
+      session.checkHealth(makeHeartbeatHandler(connPath, session));
     } else {
-      console.log("Connection " + connPath + " has been closed.");
-      if (liveSidecars.has(connPath)) {
-        console.log("Closing the corresponding sidecar.");
-        liveSidecars.get(connPath).close();
-        liveSidecars.delete(connPath);
-      }
+      handleDeadKernel(connPath);
     }
+  }
+}
+
+/**
+ * Callback to be executed with the result of a specific kernel's heartbeat.
+ * @callback heartbeatHandler
+ * @param alive {bool} True if the kernel responded to a probe, false if it timed out.
+ */
+
+/**
+ * Ensure that the sidecar corresponding to a connection file is alive or dead depending on the
+ * response from the session's heartbeat.
+ *
+ * @param connPath {string} the filesystem path to the connection JSON file.
+ * @param session {jupyter.IOPubSession} an opened session to this kernel.
+ */
+function makeHeartbeatHandler(connPath, session) {
+  return function (alive) {
+    console.log("Kernel " + connPath + " responded to a heartbeat with: " + alive);
+    if (alive) {
+      handleLiveKernel(connPath, session);
+    } else {
+      handleDeadKernel(connPath);
+    }
+  };
+}
+
+/**
+ * A kernel at the given connection path is alive and responding to heartbeat messages. Launch a
+ * new sidecar window if it does exist already.
+ *
+ * @param connPath {string} the filesystem path to the connection JSON file.
+ * @param session {jupyter.IOPubSession} an opened session to this kernel.
+ */
+function handleLiveKernel(connPath, session) {
+  if (! liveSidecars.has(connPath)) {
+    console.log("Launching sidecar for connection " + connPath + ".");
+    liveSidecars.set(connPath, launchSideCar(session));
+  }
+}
+
+/**
+ * A kernel connection JSON file has been deleted from the filesystem, or the kernel that a JSON
+ * file is referencing no longer responds to a heartbeat. Locate the sidecar window corresponding
+ * to this kernel and shut it down.
+ *
+ * @param connPath {string} the filesystem path to the connection JSON file.
+ */
+function handleDeadKernel(connPath) {
+  console.log("Connection " + connPath + " is no longer present.");
+
+  if (liveSidecars.has(connPath)) {
+    console.log("Closing the corresponding sidecar.");
+    liveSidecars.get(connPath).close();
+    liveSidecars.delete(connPath);
   }
 }
 
