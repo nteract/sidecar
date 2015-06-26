@@ -20,6 +20,23 @@
       <h1>Output</h1>
       <div id="output-container">
     </template>
+
+    <template id="tmpl-err">
+      <style>
+        h1 {
+          background-color: #f2aeae;
+          border-color: #f00;
+          padding: 2px 5px;
+          margin: 10px 0;
+        }
+
+        #trace {
+          padding: 5px 10px;
+        }
+      </style>
+      <h1>Aaahhhhhhh</h1>
+      <div id="trace">
+    </template>
   </head>
   <body style="-webkit-app-region: drag">
     <div class="content pure-u-1">
@@ -45,6 +62,23 @@
 
       document.registerElement('sidecar-cell', {prototype: cellPrototype});
 
+      var errPrototype = Object.create(HTMLElement.prototype, {
+        createdCallback: {
+          value: function() {
+            var t = document.querySelector('#tmpl-err');
+            var clone = document.importNode(t.content, true);
+            this.root = this.createShadowRoot();
+            this.root.appendChild(clone);
+          }
+        }
+      });
+
+      errPrototype.setPayload = function (trace) {
+        this.root.getElementById("trace").innerHTML = trace;
+      }
+
+      document.registerElement('sidecar-err', {prototype: errPrototype});
+
       var ipc = require('ipc');
       var container = document.getElementById('container');
 
@@ -54,6 +88,14 @@
         container.appendChild(cellNode);
 
         cellNode.scrollIntoView();
+      });
+
+      ipc.on('trace', function (message) {
+        var errNode = document.createElement('sidecar-err');
+        errNode.setPayload(message);
+        container.appendChild(errNode);
+
+        errNode.scrollIntoView();
       });
     </script>
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.2.0/katex.min.js"></script>-->
