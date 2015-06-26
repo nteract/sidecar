@@ -43,16 +43,19 @@ function launchSideCar(connFile) {
         return;
       }
 
-      console.log(msg.header);
-      console.log(msg);
-      console.log("\n\n");
-
       var richDisplay = new jupyter.RichDisplay(msg.content);
       // Get display data if available
       if (msg.header.msg_type === "execute_result") {
         richDisplay.renderData(sideCar.webContents);
       } else if (msg.header.msg_type === "stream"){
         richDisplay.renderStream(sideCar.webContents);
+      } else if (msg.header.msg_type === "status"){
+        richDisplay.updateStatus(sideCar.webContents);
+      } else if (msg.header.msg_type === "execute_input"){
+        // We don't do anything with execute_input for the moment
+      } else {
+        console.log("Noticed a msg_type we don't recognize");
+        console.log(msg);
       }
     });
   });
