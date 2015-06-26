@@ -32,3 +32,6 @@ electron/
 # Just Jupyter Things
 .ipynb_checkpoints/
 Untitled.ipynb
+
+# Builds
+SideCar.*
