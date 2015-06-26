@@ -18,5 +18,5 @@ before_install:
   - npm install -g node-gyp
 
 install:
-  - npm install
+  - npm run build
   - electron-packager ./ SideCar --platform=$PLATFORM --arch=x64 --version=0.28.3
