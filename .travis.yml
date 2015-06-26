@@ -21,4 +21,5 @@ before_install:
   - npm install -g node-gyp
 
 install:
-  - npm run build
+  - npm install
+  - npm run build-zmq
