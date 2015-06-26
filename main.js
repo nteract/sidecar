@@ -19,12 +19,11 @@ app.on('window-all-closed', function() {
   app.quit();
 });
 
-function launchSideCar(ioSession) {
+function launchSideCar(session) {
   // Keep a global reference of the side car window object
   // If we don't, the window will be closed automatically when the javascript
   // object is GCed.
   var sideCar = null;
-  var session = null;
 
   // Create the browser window.
   sideCar = new BrowserWindow({
@@ -100,7 +99,7 @@ function updateKernel(connFiles) {
       let config = require(connPath);
       let session = new jupyter.IOPubSession(config);
 
-      session.checkHealth(handleHeartbeat);
+      session.checkHealth(makeHeartbeatHandler(connPath, session));
     } else {
       handleDeadKernel(connPath);
     }
@@ -108,19 +107,27 @@ function updateKernel(connFiles) {
 }
 
 /**
+ * Callback to be executed with the result of a specific kernel's heartbeat.
+ * @callback heartbeatHandler
+ * @param alive {bool} True if the kernel responded to a probe, false if it timed out.
+ */
+
+/**
  * Ensure that the sidecar corresponding to a connection file is alive or dead depending on the
  * response from the session's heartbeat.
  *
- * @param alive {bool} True if the kernel responded to a probe, false if it timed out.
  * @param connPath {string} the filesystem path to the connection JSON file.
  * @param session {jupyter.IOPubSession} an opened session to this kernel.
  */
-function handleHeartbeat(alive, connPath, session) {
-  if (alive) {
-    handleLiveKernel(connPath, session);
-  } else {
-    handleDeadKernel(connPath);
-  }
+function makeHeartbeatHandler(connPath, session) {
+  return function (alive) {
+    console.log("Kernel " + connPath + " responded to a heartbeat with: " + alive);
+    if (alive) {
+      handleLiveKernel(connPath, session);
+    } else {
+      handleDeadKernel(connPath);
+    }
+  };
 }
 
 /**
