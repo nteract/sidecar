@@ -10,7 +10,6 @@ env:
   - PLATFORM=linux
 
 before_install:
-  - sudo apt-get install -qq libzmq3-dev pkg-config
   - npm install -g node-gyp electron electron-prebuilt electron-packager
 
 install:
