@@ -47,7 +47,7 @@ function launchSideCar(connFile) {
         return;
       }
 
-      var richDisplay = new jupyter.RichDisplay(msg.content);
+      var richDisplay = new jupyter.RichDisplay(msg);
 
       switch(msg.header.msg_type) {
         case "execute_result":
@@ -65,6 +65,10 @@ function launchSideCar(connFile) {
           break;
         case "execute_input":
           // We don't do anything with execute_input for the moment
+          break;
+        case "comm_open":
+        case "comm_msg":
+          richDisplay.renderUnimplemented(sideCar.webContents);
           break;
         default:
           console.log("Noticed a msg_type we don't recognize");
