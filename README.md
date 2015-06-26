@@ -35,3 +35,11 @@ Fire up sidecar (from within the cloned and built directory):
 ```
 $ npm run start
 ```
+
+Sidecar will open as many display areas as there are kernels running, which means if you run
+
+```
+jupyter console
+```
+
+in separate terminals, sidecar views will pop up automagically.
