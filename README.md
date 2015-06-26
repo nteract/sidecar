@@ -8,7 +8,7 @@ This is a WIP that requires building it yourself and connecting directly to a ru
 
 ## Building
 
-This package requires [iojs](https://iojs.org/en/index.html), [zmq](http://zeromq.org/intro:get-the-software), and either IPython 3.x or the current `master` suite of Jupyter packages.
+This package requires node or [iojs](https://iojs.org/en/index.html), [zmq](http://zeromq.org/intro:get-the-software), and [`jupyter_console`](https://github.com/jupyter/jupyter_console) (soon to be released).
 
 Additionally, you'll need `node-gyp`:
 
@@ -24,40 +24,22 @@ $ npm run build
 
 ## Running
 
-Now that it's built, get ready for MORE YAK SHAVING!
-
-Start an ipython kernel with:
+Start up a console:
 
 ```
-ipython kernel
+$ jupyter console
 ```
 
-This should spit out some text like:
+Fire up sidecar (from within the cloned and built directory):
 
 ```
-NOTE: When using the `ipython kernel` entry point, Ctrl-C will not work.
-
-To exit, you will have to explicitly quit this process, by either sending
-"quit" from a client, or using Ctrl-\ in UNIX-like environments.
-
-To read more about this, see https://github.com/ipython/ipython/issues/2049
-
-
-To connect another client to this kernel, use:
-    --existing kernel-20139.json   # Your kernel number will probably be different
+$ npm run start
 ```
 
-Then open a console connected to that kernel:
+Sidecar will open as many display areas as there are kernels running, which means if you run
 
 ```
-ipython console --existing kernel-20139.json
+jupyter console
 ```
 
-Then you'll need to locate where that kernel config was written to disk. This can vary based on what IPython you're running. In my case, since I'm running from the master branch of all the Jupyter and IPython repos (after the big split :tm:), they're located at `~/Library/Jupyter/runtime/`.
-
-Yours are likely in `~/.ipython/profile_default/security/`. One way to find it on a *nix system is `find ~/ -name kernel-20139.json`.
-
-Finally, run it with
-```
-$ npm run start ~/Library/Jupyter/runtime/kernel-20139.json
-```
+in separate terminals, sidecar views will pop up automagically.
