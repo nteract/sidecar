@@ -22,4 +22,3 @@ before_install:
 
 install:
   - npm install
-  - npm run build-zmq
