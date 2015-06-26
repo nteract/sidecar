@@ -38,7 +38,7 @@ function launchSideCar(ioSession) {
   sideCar.loadUrl('file://' + __dirname + '/index.html');
 
   sideCar.webContents.on('did-finish-load', function () {
-    session.on((msg) => {
+    session.on(function (msg) {
       if (!("header" in msg && "content" in msg)){
         // Didn't get a header, which is odd.
         // Also need content to display
