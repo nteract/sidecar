@@ -28,3 +28,7 @@ node_modules
 
 build/config.gypi
 electron/
+
+# Just Jupyter Things
+.ipynb_checkpoints/
+Untitled.ipynb

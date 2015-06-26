@@ -21,19 +21,21 @@
     "url": "https://github.com/rgbkrk/jupyter-sidecar/issues"
   },
   "homepage": "https://github.com/rgbkrk/jupyter-sidecar",
-  "electronVersion": "0.28.1",
+  "electronVersion": "0.28.3",
   "dependencies": {
-    "jmp": "0.0.3",
+    "electron-prebuilt": "^0.28.3",
+    "jmp": "0.0.7",
+    "jupyter-kernel-watch": "^2.0.2",
+    "jupyter-paths": "^0.3.1",
     "katex": "^0.2.0",
     "marked": "^0.3.3",
     "minimist": "^1.1.1",
-    "zmq": "^2.11.0",
-    "electron-prebuilt": "^0.28.1",
-    "electron-rebuild": "^0.2.2",
-    "node-gyp": "^1.0.3"
+    "node-gyp": "^2.0.1",
+    "watch": "^0.16.0",
+    "zmq": "^2.11.1"
   },
   "scripts": {
-    "build-zmq": "cd node_modules/zmq && node-gyp rebuild --target=0.28.1 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
+    "build-zmq": "cd node_modules/zmq && node-gyp rebuild --target=0.28.3 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
     "build": "npm install && npm run build-zmq",
     "start": "electron ."
   },
