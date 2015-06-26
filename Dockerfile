@@ -9,3 +9,6 @@ ADD . /srv/sidecar
 WORKDIR /srv/sidecar
 
 RUN npm run build
+RUN npm install -g electron-packager
+RUN electron-packager ./ SideCar --platform=linux --arch=x64 --version=0.28.3
+RUN tar -cvzf SideCar-linux-x64.tgz SideCar-linux
