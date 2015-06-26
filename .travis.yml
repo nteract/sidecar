@@ -1,6 +1,4 @@
 language: node_js
-node_js:
-  - 'iojs'
 
 sudo: false
 
@@ -12,8 +10,8 @@ addons:
 
 env:
   matrix:
-    - PLATFORM=darwin
-    - PLATFORM=win32
+    #- PLATFORM=darwin
+    #- PLATFORM=win32
     - PLATFORM=linux
 
 before_install:
