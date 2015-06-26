@@ -9,9 +9,14 @@
       <div id="container">
       </div>
     </div>
-    
+
     <script>
-      require('ipc').on('display', function(message) {
+      var ipc = require('ipc');
+      ipc.on('display', function(message) {
+        document.getElementById('container').innerHTML = message;
+      });
+
+      ipc.on('stream', function(message) {
         document.getElementById('container').innerHTML = message;
       });
     </script>

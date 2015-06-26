@@ -23,6 +23,7 @@
   "homepage": "https://github.com/rgbkrk/jupyter-sidecar",
   "electronVersion": "0.28.3",
   "dependencies": {
+    "ansi-to-html": "^0.3.0",
     "electron-prebuilt": "^0.28.3",
     "jmp": "0.0.7",
     "jupyter-kernel-watch": "^2.0.2",
