@@ -2,6 +2,8 @@ language: node_js
 node_js:
   - 'iojs'
 
+sudo: false
+
 env:
   - PLATFORM=darwin
   - PLATFORM=win32
@@ -13,4 +15,4 @@ before_install:
 
 install:
   - npm install
-  - electron-packager ./ SideCar --platform=$PLATFORM --arch=x64 --version=0.28.1
+  - electron-packager ./ SideCar --platform=$PLATFORM --arch=x64 --version=0.28.3
