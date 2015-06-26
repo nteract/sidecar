@@ -1,3 +1,5 @@
+"use strict";
+
 var app = require('app');  // Electron app
 var BrowserWindow = require('browser-window');  // Creating Browser Windows
 
@@ -53,16 +55,35 @@ function launchSideCar(connFile) {
     // when you should delete the corresponding element.
     sideCar = null;
   });
+
+  return sideCar;
 }
 
-function updateKernel(connFile, stat) {
-  if (stat.nlink !== 0){
-    console.log("Launching " + connFile + "!");
-    launchSideCar(connFile);
-  } else {
-    console.log("Connection " + connFile + " closed!");
-  }
+let liveSidecars = new Map();
 
+function updateKernel(connFiles) {
+  for (let i = 0; i < connFiles.length; i++) {
+    let
+      connPath = connFiles[i].path,
+      connStat = connFiles[i].stat;
+
+    if (connStat.nlink !== 0) {
+      // This connection file is alive.
+      // If doesn't already have a sidecar, launch one for it.
+      if (! liveSidecars.has(connPath)) {
+        console.log("Launching sidecar for connection " + connPath + ".");
+
+        liveSidecars.set(connPath, launchSideCar(connPath));
+      }
+    } else {
+      console.log("Connection " + connPath + " has been closed.");
+      if (liveSidecars.has(connPath)) {
+        console.log("Closing the corresponding sidecar.");
+        liveSidecars.get(connPath).close();
+        liveSidecars.delete(connPath);
+      }
+    }
+  }
 }
 
 var kw = new RuntimeWatch(updateKernel, jp.paths.runtime[0]);
