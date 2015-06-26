@@ -22,4 +22,3 @@ before_install:
 
 install:
   - npm run build
-  - electron-packager ./ SideCar --platform=$PLATFORM --arch=x64 --version=0.28.3
