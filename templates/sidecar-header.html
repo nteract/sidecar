@@ -1,0 +1,54 @@
+<!-- Header component -->
+<template id="tmpl-header">
+  <style>
+    .core-header {
+      height: 40px;
+      line-height: 60px;
+      font-size: 18px;
+      padding-bottom: 5px;
+      background-color: #FFFFFF;
+      color: #FFF;
+      transition: height 0.2s;
+      display: block;
+      position: relative;
+      z-index: 100;
+      padding-left: 10px;
+      padding-right: 10px;
+
+      box-sizing: border-box;
+    }
+
+    .core-header #app-logo {
+      height: 28px;
+    }
+
+    .header-bar {
+      width: 100%;
+      height: 1px;
+      background: #e7e7e7;
+      margin-bottom: -1px;
+    }
+
+  </style>
+  <div class="core-header">
+    <img id="app-logo" src="assets/jupyter.png" height="32px" />
+  </div>
+  <div class="header-bar"></div>
+</template>
+
+<script>
+(function () {
+  var importDoc = document.currentScript.ownerDocument;
+
+  var prototype = Object.create(HTMLElement.prototype);
+
+  prototype.createdCallback = function() {
+    var t = importDoc.querySelector('#tmpl-header');
+    var clone = document.importNode(t.content, true);
+    this.root = this.createShadowRoot();
+    this.root.appendChild(clone);
+  };
+
+  document.registerElement('sidecar-header', {prototype: prototype});
+})();
+</script>

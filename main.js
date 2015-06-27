@@ -30,7 +30,7 @@ function launchSideCar(session) {
     width: 800,
     height: 800,
     //"node-integration": false, // Would have to use a web-view and work with events
-    //frame: false
+    frame: false
   });
 
   // and load the index.html of the app.
