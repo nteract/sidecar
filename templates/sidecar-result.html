@@ -8,13 +8,14 @@
       margin: 0;
     }
 
-    #toggle {
-      color: #070;
+    #label {
+      color: #7c7;
       font-size: 12pt;
       font-family: Helvetica;
       font-weight: normal;
+      font-variant: small-caps;
       background-color: #7f7;
-      padding: 2px 20px;
+      padding: 4px 20px;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       cursor: pointer;
@@ -32,12 +33,12 @@
       display: none;
     }
 
-    .collapsed #toggle {
+    .collapsed #label {
       border-radius: 5px;
     }
   </style>
   <div id="state">
-    <h1 id="toggle">Useful Information Here</h1>
+    <h1 id="label">
     <div id="output-container">
   </div>
 </template>
@@ -58,12 +59,16 @@
 
     this.state = this.root.getElementById("state");
     this.outputContainer = this.root.getElementById("output-container");
-    this.toggle = this.root.getElementById("toggle");
+    this.label = this.root.getElementById("label");
 
-    this.toggle.onclick = function () {
+    this.label.onclick = function () {
       this.state.classList.toggle("collapsed");
     }.bind(this);
   };
+
+  resultPrototype.setLabel = function (content) {
+    this.label.innerHTML = content;
+  }
 
   resultPrototype.setPayload = function (content) {
     this.outputContainer.innerHTML = content;
