@@ -1,9 +1,9 @@
 // This code executes within the sidecar window.
 
-var cellPrototype = Object.create(HTMLElement.prototype, {
+var resultPrototype = Object.create(HTMLElement.prototype, {
   createdCallback: {
     value: function() {
-      var t = document.querySelector('#tmpl-cell');
+      var t = document.querySelector('#tmpl-result');
       var clone = document.importNode(t.content, true);
       this.root = this.createShadowRoot();
       this.root.appendChild(clone);
@@ -11,11 +11,11 @@ var cellPrototype = Object.create(HTMLElement.prototype, {
   }
 });
 
-cellPrototype.setPayload = function (content) {
+resultPrototype.setPayload = function (content) {
   this.root.getElementById("output-container").innerHTML = content;
 };
 
-document.registerElement('sidecar-cell', {prototype: cellPrototype});
+document.registerElement('sidecar-result', {prototype: resultPrototype});
 
 var errPrototype = Object.create(HTMLElement.prototype, {
   createdCallback: {
@@ -38,7 +38,7 @@ var ipc = require('ipc');
 var container = document.getElementById('container');
 
 ipc.on('display', function(message) {
-  var cellNode = document.createElement('sidecar-cell');
+  var cellNode = document.createElement('sidecar-result');
   cellNode.setPayload(message);
   container.appendChild(cellNode);
 
