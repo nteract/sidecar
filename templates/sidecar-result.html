@@ -1,0 +1,31 @@
+<!-- View component that includes the result of a single execution. -->
+
+<template id="tmpl-result">
+  <style>
+    #output-container {
+      padding: 5px 10px;
+    }
+  </style>
+  <div id="output-container">
+</template>
+
+<script>
+(function () {
+  var importDoc = document.currentScript.ownerDocument;
+
+  var resultPrototype = Object.create(HTMLElement.prototype);
+
+  resultPrototype.createdCallback = function() {
+    var t = importDoc.querySelector('#tmpl-result');
+    var clone = document.importNode(t.content, true);
+    this.root = this.createShadowRoot();
+    this.root.appendChild(clone);
+  };
+
+  resultPrototype.setPayload = function (content) {
+    this.root.getElementById("output-container").innerHTML = content;
+  };
+
+  document.registerElement('sidecar-result', {prototype: resultPrototype});
+})();
+</script>

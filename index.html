@@ -3,6 +3,8 @@
   <head>
     <title>Jupyter Sidecar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.2.0/katex.min.css">
+    <link rel="import" href="templates/sidecar-result.html">
+    <link rel="import" href="templates/sidecar-err.html">
   </head>
   <body style="-webkit-app-region: drag">
     <div class="content pure-u-1">
@@ -10,24 +12,6 @@
       </div>
     </div>
 
-    <script>
-      var ipc = require('ipc');
-
-      ipc.on('display', function(message) {
-        var container = document.getElementById('container');
-        container.innerHTML += "<div class='sidecar-output'>" + message + "</div>";
-
-        // TODO: Set an ID for each element, just use the last created element
-        var outputs = document.getElementsByClassName("sidecar-output");
-
-        if (outputs.length > 0) {
-          // outputs is an HTMLCollection, not an Array, so there is no .pop()
-          var lastOutput = outputs[outputs.length - 1];
-          lastOutput.scrollIntoView();
-        }
-
-      });
-    </script>
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.2.0/katex.min.js"></script>-->
+    <script src="sidecar.js"></script>
   </body>
 </html>
