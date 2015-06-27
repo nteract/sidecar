@@ -8,7 +8,7 @@
       margin: 0;
     }
 
-    h1 {
+    #toggle {
       color: #070;
       font-size: 12pt;
       font-family: Helvetica;
@@ -17,6 +17,7 @@
       padding: 2px 20px;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
+      cursor: pointer;
     }
 
     #output-container {
@@ -27,12 +28,18 @@
       margin-bottom: 5px;
     }
 
-    .collapsed#output-container {
+    .collapsed #output-container {
       display: none;
     }
+
+    .collapsed #toggle {
+      border-radius: 5px;
+    }
   </style>
-  <h1 id="toggle">Useful Information Here</h1>
-  <div id="output-container">
+  <div id="state">
+    <h1 id="toggle">Useful Information Here</h1>
+    <div id="output-container">
+  </div>
 </template>
 
 
@@ -49,11 +56,12 @@
     this.root = this.createShadowRoot();
     this.root.appendChild(clone);
 
+    this.state = this.root.getElementById("state");
     this.outputContainer = this.root.getElementById("output-container");
     this.toggle = this.root.getElementById("toggle");
 
     this.toggle.onclick = function () {
-      this.outputContainer.classList.toggle("collapsed");
+      this.state.classList.toggle("collapsed");
     }.bind(this);
   };
 
