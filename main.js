@@ -37,40 +37,8 @@ function launchSideCar(session) {
   sideCar.loadUrl('file://' + __dirname + '/index.html');
 
   sideCar.webContents.on('did-finish-load', function () {
-    session.on(function (msg) {
-      if (!("header" in msg && "content" in msg)){
-        // Didn't get a header, which is odd.
-        // Also need content to display
-        return;
-      }
-
-      var richDisplay = new jupyter.RichDisplay(msg);
-
-      switch(msg.header.msg_type) {
-        case "execute_result":
-        case "display_data":
-          richDisplay.renderData(sideCar.webContents);
-          break;
-        case "stream":
-          richDisplay.renderStream(sideCar.webContents);
-          break;
-        case "status":
-          richDisplay.updateStatus(sideCar.webContents);
-          break;
-        case "error":
-          richDisplay.renderError(sideCar.webContents);
-          break;
-        case "execute_input":
-          // We don't do anything with execute_input for the moment
-          break;
-        case "comm_open":
-        case "comm_msg":
-          richDisplay.renderUnimplemented(sideCar.webContents);
-          break;
-        default:
-          console.log("Noticed a msg_type we don't recognize");
-          console.log(msg);
-      }
+    session.on(function (message) {
+      sideCar.webContents.send("message", message);
     });
   });
 

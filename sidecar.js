@@ -1,20 +1,22 @@
 // This code executes within the sidecar window.
 
 var ipc = require('ipc');
-var container = document.getElementById('container');
+var jupyter = require('./lib/jupyter');
 
-ipc.on('display', function(message) {
-  var cellNode = document.createElement('sidecar-result');
-  cellNode.setPayload(message);
-  container.appendChild(cellNode);
+var display = new jupyter.RichDisplay();
 
-  cellNode.scrollIntoView();
-});
+function appendNode(elementName, html) {
+  var node = document.createElement(elementName);
+  node.setPayload(html);
+  container.appendChild(node);
 
-ipc.on('trace', function (message) {
-  var errNode = document.createElement('sidecar-err');
-  errNode.setPayload(message);
-  container.appendChild(errNode);
+  node.scrollIntoView();
+}
 
-  errNode.scrollIntoView();
+ipc.on('message', function (message) {
+  display.handleMessage(message, {
+    result: function (html) { appendNode('sidecar-result', html); },
+    trace: function (html) { appendNode('sidecar-err', html); },
+    code: function (js) { eval(js); }
+  });
 });
