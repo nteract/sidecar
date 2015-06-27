@@ -1,9 +1,9 @@
 // This code executes within the sidecar window.
 
 var ipc = require('ipc');
-var RichDisplay = require('./lib/display');
+var DisplayDispatch = require('./lib/display-dispatch');
 
-var display = new RichDisplay();
+var display = new DisplayDispatch();
 
 function appendNode(elementName, html) {
   var node = document.createElement(elementName);
