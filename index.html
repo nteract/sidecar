@@ -3,40 +3,8 @@
   <head>
     <title>Jupyter Sidecar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.2.0/katex.min.css">
-
-    <template id="tmpl-cell">
-      <style>
-        h1 {
-          background-color: #c6f2ae;
-          border-color: #3b950a;
-          padding: 2px 5px;
-          margin: 10px 0;
-        }
-
-        #output-container {
-          padding: 5px 10px;
-        }
-      </style>
-      <h1>Output</h1>
-      <div id="output-container">
-    </template>
-
-    <template id="tmpl-err">
-      <style>
-        h1 {
-          background-color: #f2aeae;
-          border-color: #f00;
-          padding: 2px 5px;
-          margin: 10px 0;
-        }
-
-        #trace {
-          padding: 5px 10px;
-        }
-      </style>
-      <h1>Aaahhhhhhh</h1>
-      <div id="trace">
-    </template>
+    <link rel="import" href="templates/tmpl-result.html">
+    <link rel="import" href="templates/tmpl-err.html">
   </head>
   <body style="-webkit-app-region: drag">
     <div class="content pure-u-1">
