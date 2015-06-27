@@ -1,9 +1,9 @@
 // This code executes within the sidecar window.
 
 var ipc = require('ipc');
-var jupyter = require('./lib/jupyter');
+var RichDisplay = require('./lib/display');
 
-var display = new jupyter.RichDisplay();
+var display = new RichDisplay();
 
 function appendNode(elementName, html) {
   var node = document.createElement(elementName);
