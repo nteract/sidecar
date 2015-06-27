@@ -3,13 +3,32 @@
 <template id="tmpl-result">
   <style>
     @import "bower_components/katex/dist/katex.min.css";
-  </style>
-  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    h1 {
+      color: #070;
+      font-size: 12pt;
+      font-family: Helvetica;
+      font-weight: normal;
+      background-color: #7f7;
+      padding: 2px 20px;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+
     #output-container {
       padding: 5px 10px;
+      border-left: solid 2px #eee;
+      border-right: solid 2px #eee;
+      border-bottom: solid 2px #eee;
+      margin-bottom: 5px;
     }
   </style>
-  <div id="output-container"></div>
+  <h1 id="toggle">Useful Information Here</h1>
+  <div id="output-container">
 </template>
 
 
@@ -25,10 +44,25 @@
     var clone = document.importNode(t.content, true);
     this.root = this.createShadowRoot();
     this.root.appendChild(clone);
+
+    this.outputContainer = this.root.getElementById("output-container");
+    this.toggle = this.root.getElementById("toggle");
+
+    this.isExpanded = true;
+
+    this.toggle.onclick = function () {
+      this.isExpanded = ! this.isExpanded;
+
+      if (this.isExpanded) {
+        this.outputContainer.style.setProperty("display", "none");
+      } else {
+        this.outputContainer.style.setProperty("display", "block");
+      }
+    }.bind(this);
   };
 
   resultPrototype.setPayload = function (content) {
-    this.root.getElementById("output-container").innerHTML = content;
+    this.outputContainer.innerHTML = content;
   };
 
   document.registerElement('sidecar-result', {prototype: resultPrototype});
