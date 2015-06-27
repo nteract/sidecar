@@ -16,3 +16,24 @@
   <h1>Aaahhhhhhh</h1>
   <div id="trace">
 </template>
+
+<script>
+(function () {
+  var importDoc = document.currentScript.ownerDocument;
+
+  var errPrototype = Object.create(HTMLElement.prototype);
+
+  errPrototype.createdCallback = function() {
+    var t = importDoc.querySelector('#tmpl-err');
+    var clone = document.importNode(t.content, true);
+    this.root = this.createShadowRoot();
+    this.root.appendChild(clone);
+  };
+
+  errPrototype.setPayload = function (trace) {
+    this.root.getElementById("trace").innerHTML = trace;
+  };
+
+  document.registerElement('sidecar-err', {prototype: errPrototype});
+})();
+</script>
