@@ -26,6 +26,10 @@
       border-bottom: solid 2px #eee;
       margin-bottom: 5px;
     }
+
+    .collapsed#output-container {
+      display: none;
+    }
   </style>
   <h1 id="toggle">Useful Information Here</h1>
   <div id="output-container">
@@ -48,16 +52,8 @@
     this.outputContainer = this.root.getElementById("output-container");
     this.toggle = this.root.getElementById("toggle");
 
-    this.isExpanded = true;
-
     this.toggle.onclick = function () {
-      this.isExpanded = ! this.isExpanded;
-
-      if (this.isExpanded) {
-        this.outputContainer.style.setProperty("display", "none");
-      } else {
-        this.outputContainer.style.setProperty("display", "block");
-      }
+      this.outputContainer.classList.toggle("collapsed");
     }.bind(this);
   };
 
