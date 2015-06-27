@@ -2,21 +2,38 @@
 <template id="tmpl-header">
   <style>
     .core-header {
-      height: 32px;
+      height: 40px;
       line-height: 60px;
       font-size: 18px;
-      padding: 0 10px;
+      padding-bottom: 5px;
       background-color: #FFFFFF;
       color: #FFF;
       transition: height 0.2s;
       display: block;
       position: relative;
       z-index: 100;
+      padding-left: 10px;
+      padding-right: 10px;
+
+      box-sizing: border-box;
     }
+
+    .core-header #app-logo {
+      height: 28px;
+    }
+
+    .header-bar {
+      width: 100%;
+      height: 1px;
+      background: #e7e7e7;
+      margin-bottom: -1px;
+    }
+
   </style>
   <div class="core-header">
-    <img src="assets/jupyter.png" height="32px" />
+    <img id="app-logo" src="assets/jupyter.png" height="32px" />
   </div>
+  <div class="header-bar"></div>
 </template>
 
 <script>
