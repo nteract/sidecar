@@ -1,0 +1,37 @@
+<!-- Header component -->
+<template id="tmpl-header">
+  <style>
+    .core-header {
+      height: 32px;
+      line-height: 60px;
+      font-size: 18px;
+      padding: 0 10px;
+      background-color: #FFFFFF;
+      color: #FFF;
+      transition: height 0.2s;
+      display: block;
+      position: relative;
+      z-index: 100;
+    }
+  </style>
+  <div class="core-header">
+    <img src="assets/jupyter.png" height="32px" />
+  </div>
+</template>
+
+<script>
+(function () {
+  var importDoc = document.currentScript.ownerDocument;
+
+  var prototype = Object.create(HTMLElement.prototype);
+
+  prototype.createdCallback = function() {
+    var t = importDoc.querySelector('#tmpl-header');
+    var clone = document.importNode(t.content, true);
+    this.root = this.createShadowRoot();
+    this.root.appendChild(clone);
+  };
+
+  document.registerElement('sidecar-header', {prototype: prototype});
+})();
+</script>
