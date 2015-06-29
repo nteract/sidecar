@@ -1,7 +1,19 @@
 <link rel="import" href="sidecar-result.html">
-<link rel="import" href="sidecar-err.html">
 
 <template id="tmpl-sidecar-contents">
+  <style>
+    #container {
+      padding: 20px 5px;
+    }
+
+    sidecar-result {
+      margin-bottom: 10px;
+    }
+
+    sidecar-result:last-child {
+      margin-bottom: 20px;
+    }
+  </style>
   <div id="container"></div>
 </template>
 
@@ -24,11 +36,14 @@
 
     var container = this.root.getElementById('container');
 
-    function appendNode(elementName, html, label) {
-      var node = document.createElement(elementName);
+    function appendResult(html, kind, label) {
+      var node = document.createElement('sidecar-result');
       node.setPayload(html);
       if (label) {
         node.setLabel(label);
+      }
+      if (kind) {
+        node.setKind(kind);
       }
       container.appendChild(node);
 
@@ -37,8 +52,8 @@
 
     ipc.on('message', function (message) {
       display.handleMessage(message, {
-        result: function (html, label) { appendNode('sidecar-result', html, label); },
-        trace: function (html) { appendNode('sidecar-err', html); },
+        result: function (html, label) { appendResult(html, 'ok', label); },
+        trace: function (html) { appendResult(html, 'err'); },
         code: function (js) { eval(js); }
       });
     });

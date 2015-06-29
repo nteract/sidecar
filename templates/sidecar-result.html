@@ -9,16 +9,24 @@
     }
 
     #label {
-      color: #7c7;
       font-size: 12pt;
       font-family: Helvetica;
       font-weight: normal;
       font-variant: small-caps;
-      background-color: #7f7;
       padding: 4px 20px;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       cursor: pointer;
+    }
+
+    .ok #label {
+      color: #7c7;
+      background-color: #7f7;
+    }
+
+    .err #label {
+      color: #c77;
+      background-color: #f77;
     }
 
     #output-container {
@@ -37,6 +45,7 @@
 
     .collapsed #label {
       border-radius: 5px;
+      margin-bottom: 5px;
     }
   </style>
   <div id="state">
@@ -67,6 +76,10 @@
       this.state.classList.toggle("collapsed");
     }.bind(this);
   };
+
+  resultPrototype.setKind = function (kind) {
+    this.state.classList.add(kind);
+  }
 
   resultPrototype.setLabel = function (content) {
     this.label.innerHTML = content;
