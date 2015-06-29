@@ -1,0 +1,24 @@
+{
+  "name": "jupyter-sidecar",
+  "version": "0.0.2",
+  "homepage": "https://github.com/rgbkrk/jupyter-sidecar",
+  "authors": [
+    "Kyle Kelley <rgbkrk@gmail.com>"
+  ],
+  "description": ":speedboat: Little side display of Jupyter kernel rich output",
+  "keywords": [
+    "jupyter",
+    "sidecar"
+  ],
+  "license": "BSD",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "katex": "~0.4.3"
+  }
+}
