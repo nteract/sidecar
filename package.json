@@ -28,7 +28,7 @@
     "jmp": "0.0.7",
     "jupyter-kernel-watch": "^2.0.2",
     "jupyter-paths": "^0.3.1",
-    "katex": "^0.2.0",
+    "katex": "^0.4.3",
     "marked": "^0.3.3",
     "minimist": "^1.1.1",
     "node-gyp": "^2.0.1",
