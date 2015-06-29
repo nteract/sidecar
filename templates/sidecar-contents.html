@@ -24,9 +24,12 @@
 
     var container = this.root.getElementById('container');
 
-    function appendNode(elementName, html) {
+    function appendNode(elementName, html, label) {
       var node = document.createElement(elementName);
       node.setPayload(html);
+      if (label) {
+        node.setLabel(label);
+      }
       container.appendChild(node);
 
       node.scrollIntoView();
@@ -34,7 +37,7 @@
 
     ipc.on('message', function (message) {
       display.handleMessage(message, {
-        result: function (html) { appendNode('sidecar-result', html); },
+        result: function (html, label) { appendNode('sidecar-result', html, label); },
         trace: function (html) { appendNode('sidecar-err', html); },
         code: function (js) { eval(js); }
       });
