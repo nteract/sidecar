@@ -4,8 +4,10 @@
     <title>Jupyter Sidecar</title>
     <link rel="import" href="templates/sidecar-header.html">
     <link rel="import" href="templates/sidecar-contents.html">
+    <link rel="import" href="templates/sidecar-gutter.html">
   </head>
   <body>
+
     <style>
     sidecar-header {
       display:block;
@@ -13,22 +15,36 @@
       left: 0;
       right: 0;
       top: 0;
-      height: 40px;
       box-sizing: border-box;
       -webkit-app-region: drag;
+
+      border-bottom: 1px solid #e7e7e7;
     }
 
     sidecar-contents {
       top: 50px;
       left: 0;
       right: 0;
+      bottom: 25px;
       position: fixed;
       overflow: auto;
-      height: 100%;
+      height: inherit;
     }
+
+    sidecar-gutter {
+      bottom: 0px;
+      height: 25px;
+      left: 0;
+      width:100%;
+      position: fixed;
+      border-top: 1px solid #e7e7e7;
+    }
+
     </style>
+
     <sidecar-header></sidecar-header>
     <sidecar-contents></sidecar-contents>
+    <sidecar-gutter></sidecar-gutter>
 
   </body>
 </html>
