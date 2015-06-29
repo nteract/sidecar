@@ -26,6 +26,17 @@
       min-width: -webkit-min-content;
     }
 
+    .flexbox-repaint-hack {
+      padding: 0 12.5px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
     #status-bar .status-bar-left,
     #status-bar .status-bar-right {
       overflow-x: auto;
@@ -42,12 +53,14 @@
   </style>
 
   <div id="status-bar">
-    <div class="status-bar-left">
-      Sidecar. Woo.
-    </div>
-    <div class="status-bar-right">
-      <div id="kernel-status">
-        Kernel: <span id="status"></span>
+    <div class="flexbox-repaint-hack">
+      <div class="status-bar-left">
+        Now you're cooking with sidecar.
+      </div>
+      <div class="status-bar-right">
+        <div id="kernel-status">
+          Kernel: <span id="status"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -64,7 +77,18 @@
     var clone = document.importNode(t.content, true);
     this.root = this.createShadowRoot();
     this.root.appendChild(clone);
+
+    this.root.querySelector("#status").textContent = this.getAttribute("status") || "connecting";
+
   };
+
+  prototype.attributeChangedCallback = function(attr, oldVal, newVal) {
+    switch(attr) {
+      case 'status':
+        this.root.querySelector('#status').textContent = newVal;
+        break;
+    }
+  }
 
   document.registerElement('sidecar-gutter', {prototype: prototype});
 })();
