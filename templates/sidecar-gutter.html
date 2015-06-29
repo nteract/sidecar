@@ -85,7 +85,11 @@
   prototype.attributeChangedCallback = function(attr, oldVal, newVal) {
     switch(attr) {
       case 'status':
-        this.root.querySelector('#status').textContent = newVal;
+        if (newVal.match(/^(Busy|Idle|Connecting)$/)){
+          this.root.querySelector('#status').textContent = newVal;
+        } else {
+          console.log("Invalid kernel status");
+        }
         break;
     }
   }
