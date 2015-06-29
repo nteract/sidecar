@@ -1,33 +1,26 @@
-<!-- Header component -->
-<template id="tmpl-header">
+<!-- Footer component -->
+
+<template id="tmpl-gutter">
   <style>
-    .core-header {
-      height: 40px;
-      line-height: 40px;
+    #gutter {
+      width: 100%;
+      height: 25px;
+      line-height: 25px;
       font-size: 18px;
-      padding-bottom: 5px;
       background-color: #FDFDFD;
       color: #FFF;
-      transition: height 0.2s;
       display: block;
       position: relative;
       z-index: 100;
-
       padding-left: 10px;
       padding-right: 10px;
-      padding-top: 5px;
-      padding-bottom: 5px;
 
       box-sizing: border-box;
     }
 
-    .core-header #app-logo {
-      height: 28px;
-    }
-
   </style>
-  <div class="core-header">
-    <img id="app-logo" src="assets/jupyter.png" height="32px" />
+
+  <div id="gutter">
   </div>
 </template>
 
@@ -38,12 +31,12 @@
   var prototype = Object.create(HTMLElement.prototype);
 
   prototype.createdCallback = function() {
-    var t = importDoc.querySelector('#tmpl-header');
+    var t = importDoc.querySelector('#tmpl-gutter');
     var clone = document.importNode(t.content, true);
     this.root = this.createShadowRoot();
     this.root.appendChild(clone);
   };
 
-  document.registerElement('sidecar-header', {prototype: prototype});
+  document.registerElement('sidecar-gutter', {prototype: prototype});
 })();
 </script>
