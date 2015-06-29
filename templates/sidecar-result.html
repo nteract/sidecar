@@ -13,7 +13,7 @@
       margin-bottom: 5px;
     }
 
-    #label {
+    h1 {
       font-size: 12pt;
       font-family: Helvetica;
       font-weight: normal;
@@ -24,12 +24,19 @@
       cursor: pointer;
     }
 
-    .ok #label {
+    h1 button {
+      float: right;
+      width: 30px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .ok h1 {
       color: #7c7;
       background-color: #7f7;
     }
 
-    .err #label {
+    .err h1 {
       color: #c77;
       background-color: #f77;
     }
@@ -48,12 +55,15 @@
       display: none;
     }
 
-    .collapsed #label {
+    .collapsed h1 {
       border-radius: 5px;
     }
   </style>
   <div id="state">
-    <h1 id="label"></h1>
+    <h1>
+      <button id="btn-close">X</button>
+      <span id="label"></span>
+    </h1>
     <div id="output-container"></div>
   </div>
 </template>
@@ -68,16 +78,21 @@
 
   resultPrototype.createdCallback = function() {
     var t = importDoc.querySelector('#tmpl-result');
-    var clone = document.importNode(t.content, true);
+    var node = document.importNode(t.content, true);
     this.root = this.createShadowRoot();
-    this.root.appendChild(clone);
+    this.root.appendChild(node);
 
     this.state = this.root.getElementById("state");
     this.outputContainer = this.root.getElementById("output-container");
     this.label = this.root.getElementById("label");
+    this.closeButton = this.root.getElementById("btn-close");
 
     this.label.onclick = function () {
       this.state.classList.toggle("collapsed");
+    }.bind(this);
+
+    this.closeButton.onclick = function () {
+      this.remove();
     }.bind(this);
   };
 
