@@ -84,10 +84,11 @@
 
     this.state = this.root.getElementById("state");
     this.outputContainer = this.root.getElementById("output-container");
+    this.header = this.root.getElementsByTagName("h1")[0];
     this.label = this.root.getElementById("label");
     this.closeButton = this.root.getElementById("btn-close");
 
-    this.label.onclick = function () {
+    this.header.onclick = function () {
       this.state.classList.toggle("collapsed");
     }.bind(this);
 
