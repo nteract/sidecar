@@ -60,11 +60,13 @@ var ipc = require('ipc');
   <div id="status-bar">
     <div class="flexbox">
       <div class="status-bar-left">
-        Now you're cooking with sidecar.
-      </div>
-      <div class="status-bar-right">
         <div id="kernel-status">
           Kernel: <span id="status"></span>
+        </div>
+      </div>
+      <div class="status-bar-right">
+        <div id="kernel-language">
+          Language: <span id="language">Unknown</span>
         </div>
       </div>
     </div>
