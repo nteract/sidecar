@@ -1,5 +1,10 @@
 <!-- Footer component -->
 
+<script>
+var ipc = require('ipc');
+</script>
+
+
 <template id="tmpl-gutter">
   <style>
     #status-bar {
@@ -26,7 +31,7 @@
       min-width: -webkit-min-content;
     }
 
-    .flexbox-repaint-hack {
+    .flexbox {
       padding: 0 12.5px;
       position: absolute;
       top: 0;
@@ -53,7 +58,7 @@
   </style>
 
   <div id="status-bar">
-    <div class="flexbox-repaint-hack">
+    <div class="flexbox">
       <div class="status-bar-left">
         Now you're cooking with sidecar.
       </div>
@@ -78,14 +83,22 @@
     this.root = this.createShadowRoot();
     this.root.appendChild(clone);
 
-    this.root.querySelector("#status").textContent = this.getAttribute("status") || "connecting";
+    this.root.querySelector("#status").textContent = this.getAttribute("status") || "idle";
+
+    ipc.on('message', this.acceptKernelMessage.bind(this));
 
   };
+
+  prototype.acceptKernelMessage = function(message) {
+    if(message && message.header && message.header.msg_type === "status"){
+      this.setAttribute('status', message.content.execution_state);
+    }
+  }
 
   prototype.attributeChangedCallback = function(attr, oldVal, newVal) {
     switch(attr) {
       case 'status':
-        if (newVal.match(/^(Busy|Idle|Connecting)$/)){
+        if (newVal.match(/^(busy|idle|connecting)$/)){
           this.root.querySelector('#status').textContent = newVal;
         } else {
           console.log("Invalid kernel status");
@@ -95,5 +108,6 @@
   }
 
   document.registerElement('sidecar-gutter', {prototype: prototype});
+
 })();
 </script>
