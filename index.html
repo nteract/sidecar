@@ -4,16 +4,19 @@
     <title>Jupyter Sidecar</title>
     <link rel="import" href="templates/sidecar-header.html">
     <link rel="import" href="templates/sidecar-contents.html">
-    <link rel="import" href="templates/sidecar-gutter.html">
+    <link rel="import" href="templates/sidecar-status.html">
   </head>
   <body>
 
     <style>
-    body /deep/ sidecar-gutter {
+    body /deep/ sidecar-status {
       font-family: 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
     }
 
-
+    body {
+      /* Prevent Chrome "bounce" */
+      overflow: hidden;
+    }
 
     sidecar-header {
       display:block;
@@ -28,7 +31,7 @@
     }
 
     sidecar-contents {
-      top: 50px;
+      top: 25px;
       left: 0;
       right: 0;
       bottom: 25px;
@@ -37,9 +40,9 @@
       height: inherit;
     }
 
-    sidecar-gutter {
+    sidecar-status {
       bottom: 0px;
-      height: 25px;
+      height: 28px;
       left: 0;
       width:100%;
       position: fixed;
@@ -50,7 +53,7 @@
 
     <sidecar-header></sidecar-header>
     <sidecar-contents></sidecar-contents>
-    <sidecar-gutter></sidecar-gutter>
-    
+    <sidecar-status></sidecar-status>
+
   </body>
 </html>

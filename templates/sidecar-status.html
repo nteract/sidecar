@@ -5,7 +5,7 @@ var ipc = require('ipc');
 </script>
 
 
-<template id="tmpl-gutter">
+<template id="tmpl-status">
   <style>
     #status-bar {
       width: 100%;
@@ -78,7 +78,7 @@ var ipc = require('ipc');
   var prototype = Object.create(HTMLElement.prototype);
 
   prototype.createdCallback = function() {
-    var t = importDoc.querySelector('#tmpl-gutter');
+    var t = importDoc.querySelector('#tmpl-status');
     var clone = document.importNode(t.content, true);
     this.root = this.createShadowRoot();
     this.root.appendChild(clone);
@@ -107,7 +107,7 @@ var ipc = require('ipc');
     }
   }
 
-  document.registerElement('sidecar-gutter', {prototype: prototype});
+  document.registerElement('sidecar-status', {prototype: prototype});
 
 })();
 </script>
