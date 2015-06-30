@@ -52,7 +52,7 @@
 
     ipc.on('message', function (message) {
       display.handleMessage(message, {
-        result: function (html, label) { appendResult(html, 'ok', label); },
+        result: function (html, kind, label) { appendResult(html, kind, label); },
         trace: function (html) { appendResult(html, 'err'); },
         code: function (js) { eval(js); }
       });
