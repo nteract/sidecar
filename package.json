@@ -25,7 +25,7 @@
   "dependencies": {
     "ansi-to-html": "^0.3.0",
     "electron-prebuilt": "^0.28.3",
-    "jmp": "0.0.7",
+    "jmp": "0.0.8",
     "jupyter-kernel-watch": "^2.0.2",
     "jupyter-paths": "^0.3.1",
     "katex": "^0.4.3",
