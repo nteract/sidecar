@@ -46,8 +46,6 @@
 
     "build:osx": "electron-packager ./ SideCar --platform=darwin --arch=x64 --version=0.28.3",
     "release": "npm run build-docker && npm run build-osx && npm run copy-artifacts"
-    },
-
   },
   "devDependencies": {
     "electron-packager": "^4.1.3"
