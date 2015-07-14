@@ -45,7 +45,9 @@
     "build:copy-linux-artifacts": "docker cp `docker run -d rgbkrk/sidecar echo ''`:/srv/sidecar/SideCar-linux-x64.tgz build && cp SideCar.app build/",
 
     "build:osx": "electron-packager ./ SideCar --platform=darwin --arch=x64 --version=0.28.3",
-    "release": "npm run build-docker && npm run build-osx && npm run copy-artifacts"
+    "release": "npm run build-docker && npm run build-osx && npm run copy-artifacts",
+
+    "dev": "bower install"
   },
   "devDependencies": {
     "electron-packager": "^4.1.3"
