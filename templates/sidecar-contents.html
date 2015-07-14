@@ -1,16 +1,18 @@
 <link rel="import" href="sidecar-result.html">
 
+<link rel="import" href="../node_modules/jupyter-display-area/dist/jupyter-display-area.html">
+
 <template id="tmpl-sidecar-contents">
   <style>
     #container {
       padding: 20px 5px;
     }
 
-    sidecar-result {
+    jupyter-display-area {
       margin-bottom: 10px;
     }
 
-    sidecar-result:last-child {
+    jupyter-display-area:last-child {
       margin-bottom: 20px;
     }
   </style>
@@ -36,26 +38,12 @@
 
     var container = this.root.getElementById('container');
 
-    function appendResult(html, kind, label) {
-      var node = document.createElement('sidecar-result');
-      node.setPayload(html);
-      if (label) {
-        node.setLabel(label);
-      }
-      if (kind) {
-        node.setKind(kind);
-      }
-      container.appendChild(node);
-
-      node.scrollIntoView();
-    }
-
     ipc.on('message', function (message) {
-      display.handleMessage(message, {
-        result: function (html, kind, label) { appendResult(html, kind, label); },
-        trace: function (html) { appendResult(html, 'err'); },
-        code: function (js) { eval(js); }
-      });
+        // For every kernel message, append a new jupyter-display-area
+        var node = document.createElement('jupyter-display-area');
+        node.handle(message);
+        container.appendChild(node);
+        node.scrollIntoView();
     });
 
   };

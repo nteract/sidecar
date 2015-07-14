@@ -26,6 +26,7 @@
     "ansi-to-html": "^0.3.0",
     "electron-prebuilt": "^0.28.3",
     "jmp": "0.0.8",
+    "jupyter-display-area": "0.0.3",
     "jupyter-kernel-watch": "^2.0.2",
     "jupyter-paths": "^0.3.1",
     "katex": "^0.4.3",
@@ -36,13 +37,17 @@
     "zmq": "^2.11.1"
   },
   "scripts": {
-    "build-zmq": "cd node_modules/zmq && node-gyp rebuild --target=0.28.3 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
-    "build": "npm install && npm run build-zmq",
     "start": "electron .",
-    "build-docker": "docker build -t rgbkrk/sidecar .",
-    "build-osx": "electron-packager ./ SideCar --platform=darwin --arch=x64 --version=0.28.3",
-    "copy-artifacts": "docker cp `docker run -d rgbkrk/sidecar echo ''`:/srv/sidecar/SideCar-linux-x64.tgz build && cp SideCar.app build/",
+    "postinstall": "npm run build:zmq",
+    "build:zmq": "cd node_modules/zmq && node-gyp rebuild --target=0.28.3 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
+
+    "build:linux": "docker build -t rgbkrk/sidecar .",
+    "build:copy-linux-artifacts": "docker cp `docker run -d rgbkrk/sidecar echo ''`:/srv/sidecar/SideCar-linux-x64.tgz build && cp SideCar.app build/",
+
+    "build:osx": "electron-packager ./ SideCar --platform=darwin --arch=x64 --version=0.28.3",
     "release": "npm run build-docker && npm run build-osx && npm run copy-artifacts"
+    },
+
   },
   "devDependencies": {
     "electron-packager": "^4.1.3"
