@@ -36,7 +36,6 @@
     "watch": "^0.16.0",
     "zmq": "^2.11.1"
   },
-  "bin": "npm run start",
   "scripts": {
     "start": "electron .",
     "postinstall": "npm run build:zmq",
