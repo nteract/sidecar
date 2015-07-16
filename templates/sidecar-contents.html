@@ -6,7 +6,7 @@
       padding: 20px 5px;
     }
 
-    jupyter-display-area { 
+    jupyter-display-area {
       padding-top: 10px;
       padding-bottom: 10px;
       width: 100%;
@@ -33,7 +33,7 @@
   resultPrototype.createdCallback = function() {
     var t = importDoc.querySelector('#tmpl-sidecar-contents');
     var clone = document.importNode(t.content, true);
-    this.root = this.createShadowRoot();
+    var root = this.root = this.createShadowRoot();
     this.root.appendChild(clone);
 
     var ipc = require('ipc');
@@ -41,14 +41,27 @@
     var container = this.root.getElementById('container');
 
     ipc.on('message', function (message) {
-        // For every kernel message, append a new jupyter-display-area
-        var node = document.createElement('jupyter-display-area');
+        // TODO: What is up with the mixedCamelCase.with_underscores? File a jmp bug
+        if (! message.parentHeader && ! message.parentHeader.msg_id) {
+            return;
+        }
+
+        // The element we'll send the jupyter message
+        var node;
+        var parentID = 'parentID-' + message.parentHeader.msg_id;
+        node = root.querySelector('#' + parentID);
+
+        if (!node) {
+            // For every new parentID append a new jupyter-display-area
+            node = document.createElement('jupyter-display-area');
+            node.id = parentID;
+        }
+
         if(node.handle(message)) {
             container.appendChild(node);
             node.scrollIntoView();
         }
     });
-
   };
 
   document.registerElement('sidecar-contents', {prototype: resultPrototype});
