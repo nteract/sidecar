@@ -10,7 +10,7 @@ env:
     - PLATFORM=linux
 
 before_install:
-  - apt-get install -y libzmq3-dev pkg-config
+  - sudo apt-get install -y libzmq3-dev pkg-config
   - npm install -g node-gyp-install
   - node-gyp-install
 
