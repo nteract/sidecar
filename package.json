@@ -38,7 +38,7 @@
   "scripts": {
     "start": "electron app.js",
     "postinstall": "npm run build:zmq",
-    "build:zmq": "cd node_modules/zmq && node-gyp rebuild --target=0.29.2 --arch=x64 --dist-url=https://atom.io/download/electron",
+    "build:zmq": "HOME=~/.electron-gyp cd node_modules/zmq && node-gyp rebuild --target=0.29.2 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
     "build:linux": "docker build -t rgbkrk/sidecar .",
     "build:copy-linux-artifacts": "docker cp `docker run -d rgbkrk/sidecar echo ''`:/srv/sidecar/SideCar-linux-x64.tgz build && cp SideCar.app build/",
     "build:osx": "electron-packager ./ SideCar --platform=darwin --arch=x64 --version=0.29.2",
