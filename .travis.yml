@@ -3,6 +3,15 @@ language: node_js
 node_js:
   - 'iojs'
 
+
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - libzmq3-dev
+      - pkg-config
+
 env:
   matrix:
     #- PLATFORM=darwin
@@ -10,9 +19,9 @@ env:
     - PLATFORM=linux
 
 before_install:
-  - sudo apt-get install -y libzmq3-dev pkg-config
   - npm install -g node-gyp-install
   - node-gyp-install
+  - env
 
 install:
   - npm install
