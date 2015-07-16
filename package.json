@@ -2,7 +2,10 @@
   "name": "jupyter-sidecar",
   "version": "0.0.2",
   "description": "Little side display of Jupyter kernel rich output",
-  "main": "main.js",
+  "main": "app.js",
+  "bin": {
+    "sidecar": "./app.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/rgbkrk/jupyter-sidecar.git"
@@ -24,10 +27,9 @@
   "electronVersion": "0.29.2",
   "dependencies": {
     "ansi-to-html": "^0.3.0",
-    "electron-prebuilt": "^0.29.2",
+    "electron-prebuilt": "0.29.2",
     "jmp": "0.0.8",
     "jupyter-display-area": "0.0.4",
-    "jupyter-kernel-watch": "^2.0.2",
     "jupyter-paths": "^0.3.1",
     "node-gyp": "^2.0.1",
     "watch": "^0.16.0",
@@ -42,7 +44,7 @@
     "build:copy-linux-artifacts": "docker cp `docker run -d rgbkrk/sidecar echo ''`:/srv/sidecar/SideCar-linux-x64.tgz build && cp SideCar.app build/",
 
     "build:osx": "electron-packager ./ SideCar --platform=darwin --arch=x64 --version=0.29.2",
-    "release": "npm run build-docker && npm run build-osx && npm run copy-artifacts",
+    "release": "npm run build-docker && npm run build-osx && npm run copy-artifacts"
   },
   "devDependencies": {
     "electron-packager": "^4.1.3"

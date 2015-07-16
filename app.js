@@ -1,3 +1,4 @@
+#!/usr/bin/env electron
 "use strict";
 
 var app = require('app');  // Electron app
