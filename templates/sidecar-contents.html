@@ -1,4 +1,4 @@
-<link rel="import" href="sidecar-result.html">
+<link rel="import" href="../node_modules/jupyter-display-area/dist/jupyter-display-area.html">
 
 <template id="tmpl-sidecar-contents">
   <style>
@@ -6,11 +6,18 @@
       padding: 20px 5px;
     }
 
-    sidecar-result {
-      margin-bottom: 10px;
+    jupyter-display-area {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      width: 100%;
+      height: 100%;
+      padding-left: 10px;
+
+      border-left: solid #eee 1px;
+      display: block;
     }
 
-    sidecar-result:last-child {
+    jupyter-display-area:last-child {
       margin-bottom: 20px;
     }
   </style>
@@ -26,38 +33,35 @@
   resultPrototype.createdCallback = function() {
     var t = importDoc.querySelector('#tmpl-sidecar-contents');
     var clone = document.importNode(t.content, true);
-    this.root = this.createShadowRoot();
+    var root = this.root = this.createShadowRoot();
     this.root.appendChild(clone);
 
     var ipc = require('ipc');
-    var DisplayDispatch = require('./lib/display-dispatch');
-
-    var display = new DisplayDispatch();
 
     var container = this.root.getElementById('container');
 
-    function appendResult(html, kind, label) {
-      var node = document.createElement('sidecar-result');
-      node.setPayload(html);
-      if (label) {
-        node.setLabel(label);
-      }
-      if (kind) {
-        node.setKind(kind);
-      }
-      container.appendChild(node);
-
-      node.scrollIntoView();
-    }
-
     ipc.on('message', function (message) {
-      display.handleMessage(message, {
-        result: function (html, kind, label) { appendResult(html, kind, label); },
-        trace: function (html) { appendResult(html, 'err'); },
-        code: function (js) { eval(js); }
-      });
-    });
+        // TODO: What is up with the mixedCamelCase.with_underscores? File a jmp bug
+        if (! message.parentHeader && ! message.parentHeader.msg_id) {
+            return;
+        }
 
+        // The element we'll send the jupyter message
+        var node;
+        var parentID = 'parentID-' + message.parentHeader.msg_id;
+        node = root.querySelector('#' + parentID);
+
+        if (!node) {
+            // For every new parentID append a new jupyter-display-area
+            node = document.createElement('jupyter-display-area');
+            node.id = parentID;
+        }
+
+        if(node.handle(message)) {
+            container.appendChild(node);
+            node.scrollIntoView();
+        }
+    });
   };
 
   document.registerElement('sidecar-contents', {prototype: resultPrototype});

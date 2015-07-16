@@ -2,7 +2,10 @@
   "name": "jupyter-sidecar",
   "version": "0.0.2",
   "description": "Little side display of Jupyter kernel rich output",
-  "main": "main.js",
+  "main": "app.js",
+  "bin": {
+    "sidecar": "./app.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/rgbkrk/jupyter-sidecar.git"
@@ -21,27 +24,26 @@
     "url": "https://github.com/rgbkrk/jupyter-sidecar/issues"
   },
   "homepage": "https://github.com/rgbkrk/jupyter-sidecar",
-  "electronVersion": "0.28.3",
+  "electronVersion": "0.29.2",
   "dependencies": {
     "ansi-to-html": "^0.3.0",
-    "electron-prebuilt": "^0.28.3",
+    "electron-prebuilt": "0.29.2",
     "jmp": "0.0.8",
-    "jupyter-kernel-watch": "^2.0.2",
+    "jupyter-display-area": "0.0.4",
     "jupyter-paths": "^0.3.1",
-    "katex": "^0.4.3",
-    "marked": "^0.3.3",
-    "minimist": "^1.1.1",
     "node-gyp": "^2.0.1",
     "watch": "^0.16.0",
     "zmq": "^2.11.1"
   },
   "scripts": {
-    "build-zmq": "cd node_modules/zmq && node-gyp rebuild --target=0.28.3 --arch=x64 --dist-url=https://atom.io/download/atom-shell",
-    "build": "npm install && npm run build-zmq",
-    "start": "electron .",
-    "build-docker": "docker build -t rgbkrk/sidecar .",
-    "build-osx": "electron-packager ./ SideCar --platform=darwin --arch=x64 --version=0.28.3",
-    "copy-artifacts": "docker cp `docker run -d rgbkrk/sidecar echo ''`:/srv/sidecar/SideCar-linux-x64.tgz build && cp SideCar.app build/",
+    "start": "electron app.js",
+    "postinstall": "npm run build:zmq",
+    "build:zmq": "cd node_modules/zmq && node-gyp rebuild --target=0.29.2 --arch=x64 --dist-url=https://atom.io/download/electron",
+
+    "build:linux": "docker build -t rgbkrk/sidecar .",
+    "build:copy-linux-artifacts": "docker cp `docker run -d rgbkrk/sidecar echo ''`:/srv/sidecar/SideCar-linux-x64.tgz build && cp SideCar.app build/",
+
+    "build:osx": "electron-packager ./ SideCar --platform=darwin --arch=x64 --version=0.29.2",
     "release": "npm run build-docker && npm run build-osx && npm run copy-artifacts"
   },
   "devDependencies": {

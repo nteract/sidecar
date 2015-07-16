@@ -1,3 +1,5 @@
+# Dockerfile used solely for building sidecar in Linux
+
 FROM ubuntu:14.04
 
 RUN apt-get update -y
@@ -11,4 +13,3 @@ WORKDIR /srv/sidecar
 RUN npm run build
 RUN npm install -g electron-packager
 RUN electron-packager ./ SideCar --platform=linux --arch=x64 --version=0.28.3
-RUN tar -cvzf SideCar-linux-x64.tgz SideCar-linux
