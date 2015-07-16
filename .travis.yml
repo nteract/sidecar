@@ -23,4 +23,4 @@ before_install:
   - node-gyp-install
 
 install:
-  - echo 'guh'
+  - npm install 
