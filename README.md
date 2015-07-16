@@ -4,40 +4,39 @@ Little side HTML display of Jupyter kernel rich output.
 
 ![Sidecar in Electron](https://files.gitter.im/jupyter/notebook/ivzi/sidecar.gif)
 
-## Building
+## Installation
 
 This package requires node or [iojs](https://iojs.org/en/index.html), [zmq](http://zeromq.org/intro:get-the-software), and [`jupyter_console`](https://github.com/jupyter/jupyter_console).
 
-Additionally, you'll need `node-gyp`:
 
 ```
-npm install -g node-gyp
+$ npm install -g electron-prebuilt
+$ npm install -g jupyter-sidecar
 ```
 
-After cloning this repository and `cd`ing into the directory, run this:
+## Usage
 
 ```
-$ npm install
-```
-
-## Running
-
-Start up a console:
-
-```
-$ jupyter console
-```
-
-Fire up sidecar (from within the cloned and built directory):
-
-```
-$ npm run start
+$ sidecar
 ```
 
 Sidecar will open as many display areas as there are kernels running, which means if you run
 
 ```
-jupyter console
+$ jupyter console
 ```
 
 in separate terminals, sidecar views will pop up automagically.
+
+## Building
+
+
+After cloning this repository and `cd`ing into the directory, run this:
+
+```
+$ npm install -g electron-prebuilt
+$ npm install
+```
+
+To run the local copy, use `npm run start`
+
