@@ -10,6 +10,9 @@
 
     jupyter-display-area {
       margin-bottom: 10px;
+      padding-bottom: 10px;
+      width: 100%;
+      height: 100%;
     }
 
     jupyter-display-area:last-child {
@@ -38,9 +41,10 @@
     ipc.on('message', function (message) {
         // For every kernel message, append a new jupyter-display-area
         var node = document.createElement('jupyter-display-area');
-        node.handle(message);
-        container.appendChild(node);
-        node.scrollIntoView();
+        if(node.handle(message)) {
+            container.appendChild(node);
+            node.scrollIntoView();
+        }
     });
 
   };
