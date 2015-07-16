@@ -29,9 +29,6 @@
     "jupyter-display-area": "0.0.3",
     "jupyter-kernel-watch": "^2.0.2",
     "jupyter-paths": "^0.3.1",
-    "katex": "^0.4.3",
-    "marked": "^0.3.3",
-    "minimist": "^1.1.1",
     "node-gyp": "^2.0.1",
     "watch": "^0.16.0",
     "zmq": "^2.11.1"
