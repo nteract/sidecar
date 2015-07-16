@@ -21,7 +21,6 @@ env:
 before_install:
   - npm install -g node-gyp-install
   - node-gyp-install
-  - env
 
 install:
-  - npm install
+  - echo 'guh'
