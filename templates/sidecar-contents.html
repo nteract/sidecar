@@ -41,8 +41,7 @@
     var container = this.root.getElementById('container');
 
     ipc.on('message', function (message) {
-        // TODO: What is up with the mixedCamelCase.with_underscores? File a jmp bug
-        if (! message.parentHeader && ! message.parentHeader.msg_id) {
+        if (! message.parent_header && ! message.parent_header.msg_id) {
             return;
         }
 
