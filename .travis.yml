@@ -23,4 +23,7 @@ before_install:
   - node-gyp-install
 
 install:
-  - npm install 
+  - echo "Boy do I need to fix up travis+electron+node-zmq"
+
+script:
+  - echo "Cries"

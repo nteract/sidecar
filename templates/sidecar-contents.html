@@ -57,10 +57,13 @@
             node.id = parentID;
         }
 
-        if(node.handle(message)) {
+        node.handle(message).then(function(){
             container.appendChild(node);
             node.scrollIntoView();
-        }
+        }).catch(function(err){
+            console.error(err);
+        })
+
     });
   };
 
