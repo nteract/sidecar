@@ -28,12 +28,12 @@
   "dependencies": {
     "ansi-to-html": "^0.3.0",
     "electron-prebuilt": "0.30.1",
-    "jmp": "0.0.8",
+    "jmp": "0.2.0",
     "jupyter-display-area": "0.1.0",
     "jupyter-paths": "^0.3.1",
     "node-gyp": "^2.0.1",
     "watch": "^0.16.0",
-    "zmq": "^2.11.1"
+    "zmq": "^2.12.0"
   },
   "scripts": {
     "start": "electron app.js",
