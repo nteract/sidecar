@@ -14,9 +14,7 @@
     "jupyter",
     "ipython",
     "sidecar",
-    "output",
-    "garbage",
-    "periwinkle"
+    "output"
   ],
   "author": "Kyle Kelley",
   "license": "BSD-3-Clause",
@@ -26,10 +24,9 @@
   "homepage": "https://github.com/rgbkrk/jupyter-sidecar",
   "electronVersion": "0.31.2",
   "dependencies": {
-    "ansi-to-html": "^0.3.0",
     "electron-prebuilt": "0.31.2",
     "jmp": "0.2.0",
-    "jupyter-display-area": "0.1.0",
+    "jupyter-js-output-area": "0.0.4",
     "jupyter-paths": "^0.3.1",
     "node-gyp": "^2.0.1",
     "watch": "^0.16.0",
