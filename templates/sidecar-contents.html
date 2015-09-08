@@ -58,7 +58,7 @@
 
             node = view.el;
             node.id = parentID;
-            node.model = model;
+            node.model = model; // Keep the model around with the node for now
         }
 
         var consumed = node.model.consumeMessage(message);
