@@ -51,6 +51,8 @@
         var parentID = 'parentID-' + message.parent_header.msg_id;
         node = root.querySelector('#' + parentID);
 
+        var existedPrior = Boolean(node);
+
         if (!node) {
             // For every new parentID append a new output area
             var model = new OutputModel();
@@ -62,7 +64,7 @@
         }
 
         var consumed = node.model.consumeMessage(message);
-        if (consumed) {
+        if (consumed && ! existedPrior) {
           container.appendChild(node);
           node.scrollIntoView();
         }
