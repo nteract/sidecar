@@ -1,12 +1,10 @@
-<link rel="import" href="../node_modules/jupyter-display-area/dist/jupyter-display-area.html">
-
 <template id="tmpl-sidecar-contents">
   <style>
     #container {
       padding: 20px 5px;
     }
 
-    jupyter-display-area {
+     .output-area {
       padding-top: 10px;
       padding-bottom: 10px;
       width: 100%;
@@ -17,7 +15,7 @@
       display: block;
     }
 
-    jupyter-display-area:last-child {
+    .output-area:last-child {
       margin-bottom: 20px;
     }
   </style>
@@ -26,6 +24,9 @@
 
 <script>
 (function () {
+  var joust = require('jupyter-js-output-area')
+  var OutputModel = joust.OutputModel;
+  var OutputView = joust.OutputView;
   var importDoc = document.currentScript.ownerDocument;
 
   var resultPrototype = Object.create(HTMLElement.prototype);
@@ -47,21 +48,24 @@
 
         // The element we'll send the jupyter message
         var node;
-        var parentID = 'parentID-' + message.parentHeader.msg_id;
+        var parentID = 'parentID-' + message.parent_header.msg_id;
         node = root.querySelector('#' + parentID);
 
         if (!node) {
-            // For every new parentID append a new jupyter-display-area
-            node = document.createElement('jupyter-display-area');
+            // For every new parentID append a new output area
+            var model = new OutputModel();
+            var view = new OutputView(model, document);
+
+            node = view.el;
             node.id = parentID;
+            node.model = model; // Keep the model around with the node for now
         }
 
-        node.handle(message).then(function(){
-            container.appendChild(node);
-            node.scrollIntoView();
-        }).catch(function(err){
-            console.error(err);
-        })
+        var consumed = node.model.consumeMessage(message);
+        if (consumed) {
+          container.appendChild(node);
+          node.scrollIntoView();
+        }
 
     });
   };
