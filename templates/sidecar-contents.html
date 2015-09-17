@@ -24,9 +24,7 @@
 
 <script>
 (function () {
-  var joust = require('jupyter-js-output-area')
-  var OutputModel = joust.OutputModel;
-  var OutputView = joust.OutputView;
+  var Sidecar = require('./lib/sidecar')
   var importDoc = document.currentScript.ownerDocument;
 
   var resultPrototype = Object.create(HTMLElement.prototype);
@@ -41,35 +39,8 @@
 
     var container = this.root.getElementById('container');
 
-    ipc.on('message', function (message) {
-        if (! message.parent_header && ! message.parent_header.msg_id) {
-            return;
-        }
-
-        // The element we'll send the jupyter message
-        var node;
-        var parentID = 'parentID-' + message.parent_header.msg_id;
-        node = root.querySelector('#' + parentID);
-
-        var existedPrior = Boolean(node);
-
-        if (!node) {
-            // For every new parentID append a new output area
-            var model = new OutputModel();
-            var view = new OutputView(model, document);
-
-            node = view.el;
-            node.id = parentID;
-            node.model = model; // Keep the model around with the node for now
-        }
-
-        var consumed = node.model.consumeMessage(message);
-        if (consumed && ! existedPrior) {
-          container.appendChild(node);
-          node.scrollIntoView();
-        }
-
-    });
+    var sidecar = new Sidecar(container, importDoc);
+    ipc.on('message', sidecar.consume.bind(sidecar));
   };
 
   document.registerElement('sidecar-contents', {prototype: resultPrototype});
