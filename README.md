@@ -1,4 +1,4 @@
-# jupyter-sidecar
+# sidecar
 
 Little side HTML display of Jupyter kernel rich output.
 
