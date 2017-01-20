@@ -1,5 +1,7 @@
 # sidecar
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/nteract/sidecar.svg)](https://greenkeeper.io/)
+
 Little side HTML display of Jupyter kernel rich output.
 
 ![Sidecar in Electron](https://files.gitter.im/jupyter/notebook/ivzi/sidecar.gif)
