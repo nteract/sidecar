@@ -42,6 +42,6 @@
     "release": "npm run build-docker && npm run build-osx && npm run copy-artifacts"
   },
   "devDependencies": {
-    "electron-packager": "^8.5.0"
+    "electron-packager": "^8.5.1"
   }
 }
